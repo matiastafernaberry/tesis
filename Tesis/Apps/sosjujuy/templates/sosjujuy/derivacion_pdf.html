@@ -1,0 +1,36 @@
+{% extends "easy_pdf/base.html" %}
+
+{% block content %}
+    <div id="content" >
+        <div align="left" class="col-md-2" >
+            <p style="font-size: 18px">{{ derivacion.beneficiario.nombre }} {{ derivacion.beneficiario.apellido }}</p>
+        </div>
+        <div align="left" class="col-md-2">
+            <div style="font-size: 14px; display: inline-block">El d&iacute;a </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.fecha_hora.date.day }}</b></div>
+            <div style="font-size: 14px; display: inline-block"> de </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.fecha_hora|date:"F" }}</b></div>
+            <div style="font-size: 14px; display: inline-block"> a las </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.fecha_hora.time }}</b></div>
+            <br/>
+            <div style="font-size: 14px; display: inline-block"> ten&eacute;s turno para </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.prestacion.rubro }}</b></div>
+            <div style="font-size: 14px; display: inline-block"> con </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.prestacion.prestador.nombre }} {{ derivacion.prestacion.prestador.apellido }}</b></div>
+            <br/>
+            <div style="font-size: 14px; display: inline-block"> en el domicilio </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.prestacion.domicilio.calle }} {{ derivacion.prestacion.domicilio.numero }}</b></div>
+            {% if derivacion.prestacion.domicilio.observaciones != '' and derivacion.prestacion.domicilio.observaciones != '-' %}
+                <p style="font-size: 14px; display: inline-block">, </p>
+                <p style="font-size: 18px; display: inline-block"><b>{{ derivacion.prestacion.domicilio.observaciones }}</b></p>
+            {% endif %}
+            <p style="font-size: 14px; display: inline-block">, barrio </p>
+            <p style="font-size: 18px; display: inline-block"><b>{{ derivacion.prestacion.domicilio.barrio }}</b></p>
+        </div>
+        <div align="left" class="col-md-2">
+            <div style="font-size: 14px; display: inline-block">El motivo de tu consulta es: </div>
+            <div style="font-size: 18px; display: inline-block"><b>{{ derivacion.motivo }}</b></div>
+        </div>
+    </div>
+{% endblock %}
+

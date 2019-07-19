@@ -1,0 +1,28 @@
+{% extends "sosjujuy/base_site.html" %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Registrar Domicilio</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <form method="post" id="domicilioForm" novalidate>
+                    {% csrf_token %}
+                    <div class = "table-responsive col-md-6" >
+                        <table class = "table table-bordered">
+                            {{ form.as_table }}
+                        </table>
+
+                        <button type="submit" class="btn btn-success col-md-3">Guardar</button>
+                        <a href="{% url 'domicilio_changelist' %}" class="btn btn-danger col-md-3">Cancelar</a>
+                    </div>
+                    <div class="col-md-6" align="right"><img src="/static/images/sosjujuy_index.jpg"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

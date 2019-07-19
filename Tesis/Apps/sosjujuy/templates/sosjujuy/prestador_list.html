@@ -1,0 +1,86 @@
+{% extends "sosjujuy/base_site.html" %}
+
+{% block title %} Prestadores {% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link href="/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="">
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_title">
+                        <h2>Prestadores</h2>
+                        <div class="alignright">
+                            <a class="btn btn-primary" href="{% url 'prestador_add' %}">
+                                <i class="fa fa-bars"></i> Nuevo Prestador</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <td align="center" class="col-md-2"><b><u>Nº Matrícula</u></b></td>
+                                <td align="center" class="col-md-4"><b><u>Nombre</u></b></td>
+                                <td align="center" class="col-md-2"><b><u>N° Documento</u></b></td>
+                                <td align="center" class="col-md-2"><b><u>Teléfono</u></b></td>
+                                <td align="center" class="col-md-2"><b><u>Acción</u></b></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if object_list %}
+                                {% for prestador in object_list %}
+                                    <tr>
+
+                                        <td align="center" class="col-md-2"><h2>{{ prestador.matricula }}</h2></td>
+                                        <td align="center" class="col-md-4">
+                                            <h2>{{ prestador.nombre }} {{ prestador.apellido }}</h2></td>
+                                        <td align="center" class="col-md-2"><h2>{{ prestador.documento }}</h2></td>
+                                        <td align="center" class="col-md-2"><h2>{{ prestador.telefono }}</h2></td>
+                                        <td  align="center" class="col-md-2">
+                                            <a class="btn btn-success" href="{% url 'prestador_change' prestador.id %}">Editar</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <h1>No hay registros de Prestadores</h1>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <!-- Datatables -->
+    <script src="/static/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/static/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="/static/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="/static/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/static/vendors/pdfmake/build/vfs_fonts.js"></script>
+{% endblock javascripts %}

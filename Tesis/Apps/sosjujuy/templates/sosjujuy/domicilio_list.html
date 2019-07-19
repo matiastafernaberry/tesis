@@ -1,0 +1,33 @@
+{% extends "sosjujuy/base_site.html" %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <div class="col-md-6"><h3>Domicilios
+                        </br>
+                        <form action="{% url 'domicilio_add' %}">
+                            <button type="submit" class = "btn btn-primary">Registrar NUEVO</button>
+                        </form>
+                    </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-6"><h3>Domicilios Registrados</h3>
+                    <table class="table table-bordered table-responsive">
+                        {% for domicilio in object_list %}
+                        <tr>
+                            <th class="col-md-8"><h4>{{ domicilio }}</h4></th>
+                            <th class="col-md-2"><a class="btn btn-success" href="{% url 'domicilio_change' domicilio.id %}">EDITAR</a></th>
+                            <th class="col-md-2"><a class="btn btn-danger" href="{% url 'domicilio_delete' domicilio.id %}">BORRAR</a></th>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
