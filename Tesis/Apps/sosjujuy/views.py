@@ -85,6 +85,8 @@ class BeneficiarioCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         form = self.form_class(request.POST)
+        print(" ")
+        print(request.POST)
         form2 = self.second_form_class(request.POST)
         if form.is_valid() and form2.is_valid():
             beneficiario = form.save(commit=False)
@@ -182,10 +184,10 @@ class PrestacionCreateView(CreateView):
         self.object = self.get_object
         form = self.form_class(request.POST)
         form2 = self.second_form_class(request.POST)
-        if form.is_valid() and form2.is_valid():
+        if form.is_valid() :
             prestacion = form.save(commit=False)
-            prestacion.domicilio = form2.save()
-            prestacion.save()
+            #prestacion.domicilio = form2.save()
+            #prestacion.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form, form2=form2))

@@ -995,15 +995,19 @@ function init_parsley() {
         $('#demo-form2').parsley().validate();
         validateFront();
     });
-    var validateFront = function() {
-        if (true === $('#demo-form2').parsley().isValid()) {
-            $('.bs-callout-info').removeClass('hidden');
-            $('.bs-callout-warning').addClass('hidden');
-        } else {
-            $('.bs-callout-info').addClass('hidden');
-            $('.bs-callout-warning').removeClass('hidden');
-        }
-    };
+    
+        var validateFront = function() {
+            try {
+                if (true === $('#demo-form2').parsley().isValid()) {
+                    $('.bs-callout-info').removeClass('hidden');
+                    $('.bs-callout-warning').addClass('hidden');
+                } else {
+                    $('.bs-callout-info').addClass('hidden');
+                    $('.bs-callout-warning').removeClass('hidden');
+                }
+            } catch (err) {}
+        };
+    
 
     try {
         hljs.initHighlightingOnLoad();

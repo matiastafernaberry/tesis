@@ -89,7 +89,6 @@ class Antecedente(models.Model):
 
 
 class Beneficiario(Persona):
-    numero_beneficiario = models.IntegerField()
     domicilio_legal = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True,
                                         related_name='domicilio_legal')
     domicilio_real = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True,

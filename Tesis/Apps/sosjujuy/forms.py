@@ -37,6 +37,10 @@ class DomicilioForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
+SEXO=[
+  ('h','Hombre'),
+  ('m','Mujer'),
+  ('o','Otro')]
 
 class BeneficiarioForm(forms.ModelForm):
     class Meta:
@@ -45,7 +49,7 @@ class BeneficiarioForm(forms.ModelForm):
             'autoclose': True
         }
         model = Beneficiario
-        fields = ('numero_beneficiario',
+        fields = (
                   'nombre',
                   'apellido',
                   'tipo_documento',
@@ -55,7 +59,7 @@ class BeneficiarioForm(forms.ModelForm):
                   'email',
                   'telefono')
 
-        labels = {'numero_beneficiario': 'Nº Beneficiario ',
+        labels = {
                   'nombre': 'Nombre ',
                   'apellido': 'Apellido ',
                   'tipo_documento': 'Tipo de Documento ',
@@ -65,12 +69,12 @@ class BeneficiarioForm(forms.ModelForm):
                   'email': 'E-mail',
                   'telefono': 'Teléfono '}
 
-        widgets = {'numero_beneficiario': forms.TextInput(attrs={'class': 'form-control'}),
+        widgets = {
                    'nombre': forms.TextInput(attrs={'class': 'form-control'}),
                    'apellido': forms.TextInput(attrs={'class': 'form-control'}),
                    'tipo_documento': forms.Select(attrs={'class': 'form-control'}),
                    'documento': forms.TextInput(attrs={'class': 'form-control'}),
-                   'sexo': forms.TextInput(attrs={'class': 'form-control'}),
+                   'sexo': forms.RadioSelect(choices=SEXO),
                    'fecha_de_nacimiento': widgets.DateWidget(attrs={'id': 'id_fecha', 'class': 'form-control'}, bootstrap_version=3, options=dateTimeOptions),
                    'email': forms.EmailInput(attrs={'class': 'form-control'}),
                    'telefono': forms.TextInput(attrs={'class': 'form-control'})}
@@ -133,12 +137,13 @@ class PrestacionForm(forms.ModelForm):
                   'condiciones_de_prestacion': 'Condiciones',
                   'aclaraciones': 'Observaciones'}
 
-        widgets = {'rubro': forms.TextInput(attrs={'class': 'form-control'}),
-                   'prestador': forms.Select(attrs={'class': 'form-control'}),
-                   'porcentaje_de_cobertura': forms.TextInput(attrs={'class': 'form-control'}),
-                   'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
-                   'condiciones_de_prestacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
-                   'aclaraciones': forms.Textarea(attrs={'class': 'form-control', 'rows':3})}
+        widgets = {
+          'rubro': forms.TextInput(attrs={'class': 'form-control'}),
+          'prestador': forms.Select(attrs={'class': 'form-control'}),
+          'porcentaje_de_cobertura': forms.TextInput(attrs={'class': 'form-control'}),
+          'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+          'condiciones_de_prestacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+          'aclaraciones': forms.Textarea(attrs={'class': 'form-control', 'rows':3})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

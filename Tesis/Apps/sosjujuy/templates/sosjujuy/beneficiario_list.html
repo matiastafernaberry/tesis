@@ -42,7 +42,7 @@
                 {% if object_list %}
                     {% for beneficiario in object_list %}
                         <tr>
-                            <td align="center" class="col-md-2"><h2>{{ beneficiario.numero_beneficiario }}</h2></td>
+                            <td align="center" class="col-md-2"><h2>{{ beneficiario.id }}</h2></td>
                             <td align="center" class="col-md-2"><h2>{{ beneficiario.documento }}</h2></td>
                             <td align="center" class="col-md-3"><h2>{{ beneficiario.nombre }} {{beneficiario.apellido}}</h2></td>
                             <td align="center" class="col-md-4"><h2>{{ beneficiario.domicilio_legal.calle }}

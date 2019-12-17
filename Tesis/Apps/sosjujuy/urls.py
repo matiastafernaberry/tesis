@@ -3,9 +3,11 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
 from . import views
+from . import search
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('search/', login_required(search.Search.as_view()), name='buscador'),
     path('reportes/', views.reports, name='reports'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('signup/', views.signup, name='signup'),

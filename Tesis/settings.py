@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'sosjujuy.com',
-    'localhost',
+    'localhost'
                  ]
 
 
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'Tesis.Apps.sosjujuy',
     'report_builder',
     'datetimewidget',
-    'easy_pdf'
+    'easy_pdf',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -87,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sosjujuy',
-        'USER': 'admin',
-        'PASSWORD': 'password',
+        'USER': 'root',
+        'PASSWORD': '',
     }
 }
 
