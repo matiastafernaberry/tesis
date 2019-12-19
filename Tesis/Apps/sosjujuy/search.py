@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.views import View
 
-from .models import Pais, Provincia, Beneficiario
+from .models import Pais, Provincia, Beneficiario, Prestador
 
 
 class Search(View):
@@ -29,5 +29,13 @@ class BeneficiarioListado(View):
     def post(self, request):
         url = request.POST["url"]
         data = Beneficiario.objects.all()
+        qs_json = serializers.serialize('json', data)
+        return HttpResponse(qs_json, content_type='application/json')
+
+
+class PrestadorListado(View):
+    def post(self, request):
+        url = request.POST["url"]
+        data = Prestador.objects.all()
         qs_json = serializers.serialize('json', data)
         return HttpResponse(qs_json, content_type='application/json')

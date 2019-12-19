@@ -158,7 +158,7 @@ class NotificacionCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(self.get_success_url())
@@ -185,7 +185,7 @@ class NotificacionUpdateView(UpdateView):
         self.object = self.get_object
         id_notificacion = kwargs['pk']
         notificacion = self.model.objects.get(id=id_notificacion)
-        form = self.form_class(request.POST, instance=notificacion)
+        form = self.form_class(request.POST, request.FILES, instance=notificacion)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(self.get_success_url())

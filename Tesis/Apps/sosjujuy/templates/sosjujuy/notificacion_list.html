@@ -31,7 +31,7 @@
               <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <td align="center" class="col-md-2"><b><u>Nº Notificaciones</u></b></td>
+                    <td align="center" class="col-md-2"><b><u>Nº Notificacion</u></b></td>
                     <td align="center" class="col-md-3"><b><u>Escala1</u></b></td>
                     <td align="center" class="col-md-5"><b><u>Escala2</u></b></td>
                     <td align="center" class="col-md-5"><b><u>Asunto</u></b></td>
@@ -49,7 +49,7 @@
                             <td align="center" class="col-md-3"><h2>{{ notificacion.escalaDos }}</h2></td>
                             <td align="center" class="col-md-4"><h2>{{ notificacion.asunto }}</h2></td>
                             <td align="center" class="col-md-4"><h2>{{ notificacion.estado }}</h2></td>
-                            <td align="center" class="col-md-4"><h2>{{ notificacion.fecha }}</h2></td>
+                            <td align="center" class="col-md-4"><h2>{{ notificacion.fecha|date:"d-m-Y" }}</h2></td>
                             <td align="center" class="col-md-1">
                                 <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.id %}">Editar</a>
                             </td>

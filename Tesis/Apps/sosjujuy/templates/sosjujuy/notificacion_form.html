@@ -3,7 +3,7 @@
 {% block content %}
     <div class="right_col" role="main">
 
-        <form method="post" id="notificacionForm" novalidate>
+        <form method="post" id="notificacionForm" novalidate  enctype="multipart/form-data">
             <div class="">
                 <div class="page-title">
                     <div class="col-md-4">
@@ -13,28 +13,112 @@
                 </br>
                 <div class="clearfix"></div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="col-md-11" align="right">
                             <div class="x_panel border-aero">
                                 
                                 {% csrf_token %}
+                                <div class="row">
                                 {% for field in form %}
-                                    <div class="row">
-                                        <div class="col-md-4" align="left" style="margin-top:8px">{{ form.field }}
+                                    <div class="col-md-2" align="left" style="margin-top:8px">
+                                        {% if forloop.counter == 6 or forloop.counter == 7  %}
+                                            
+                                        {% else %}
+                                            {{ form.field }}
                                             {{ field.label_tag }}
-                                        </div>
-                                        <div class="col-md-5 " style="margin-bottom: 5px">
-                                            {{ field }}
-                                            <a style="color:red">{{ field.errors }} </a>
-                                        </div>
-                                        <div class="clearfix"></div>
+                                        {% endif %}
                                     </div>
+                                    <div class="col-md-4" style="margin-bottom: 5px">
+                                        {{ field }}
+                                        <a style="color:red">{{ field.errors }} </a>
+                                    </div>
+                                    {% if forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 5  %}
+                                        </div>
+                                        <div class="row" style="margin-top: 2rem">
+                                    {% endif %}
+                                    {% if forloop.counter == 7  %}
+                                        <div class="col-md-6" style="text-align: center;margin-top: 1rem" id="prestador_campos">
 
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Nombre:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Apellido:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Documento:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Matricula:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6" style="text-align: center;" id="beneficiarios_campos">
+
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Nombre:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Apellido:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8" style="margin-top: 1rem">
+                                                <div class="col-md-4">
+                                                    <label for="id_escala">Documento:</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" align="right"><img src="/static/images/sosjujuy_index.jpg"></div>
+                    
                 </div>
                 <div class="row">
                     <div class="col-md-2"></div>

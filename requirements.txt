@@ -3,4 +3,3 @@ mysqlclient
 django-report-builder
 django-datetime-widget
 django-easy-pdf
-djangorestframework

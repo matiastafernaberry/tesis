@@ -1,6 +1,8 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.conf.urls.static import static
+from django.conf import settings
 
 from . import views
 from . import search
@@ -11,6 +13,7 @@ urlpatterns = [
     path('search/', login_required(search.Search.as_view()), name='buscador'),
     path('provincias/', login_required(search.ProvinciaListado.as_view()), name='provincia'),
     path('beneficiariosearch/', login_required(search.BeneficiarioListado.as_view()), name='provincia'),
+    path('prestadorsearch/', login_required(search.PrestadorListado.as_view()), name='buscador_prestador'),
     # find buscadores
     path('reportes/', views.reports, name='reports'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
@@ -47,6 +50,6 @@ urlpatterns = [
     path('actividad_extensiondelete/<actividad_extension_id>', login_required(views.deleteActividadExtension), name='actividad_extension_delete'),
     path('encuesta_beneficiario/<int:pk_beneficiario>_<int:pk_derivacion>', views.EncuestaAtencionBeneficiarioCreateView.as_view(), name='encuesta_beneficiario_add'),
     path(r'report_builder/', include('report_builder.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

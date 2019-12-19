@@ -135,6 +135,9 @@ class Notificacion(models.Model):
     asunto = models.CharField(max_length=300)
     estado = models.CharField(max_length=300)
     fecha = models.DateTimeField(auto_now_add=True)
+    archivo = models.FileField(max_length=254, null=True)
+    prestador = models.ForeignKey(Prestador, on_delete=models.SET_NULL, blank=True, null=True)
+    beneficiario = models.ForeignKey(Beneficiario, on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class ActividadExtension(models.Model):
