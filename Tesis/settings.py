@@ -150,6 +150,6 @@ LOGIN_URL = 'login'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sos.jujuy2018@gmail.com'
+EMAIL_HOST_USER = 'sos.jujuy.2020@gmail.com'
 EMAIL_HOST_PASSWORD = 'sosjujuy_2018'
 EMAIL_USE_TLS = True

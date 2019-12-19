@@ -2,7 +2,7 @@ from datetimewidget import widgets
 from django import forms
 
 from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, ActividadExtension, \
-    EncuestaAtencionBeneficiario
+    EncuestaAtencionBeneficiario, Notificacion
 
 
 class DomicilioForm(forms.ModelForm):
@@ -14,6 +14,8 @@ class DomicilioForm(forms.ModelForm):
                   'barrio',
                   'calle',
                   'numero',
+                  'departamento',
+                  'piso',
                   'observaciones')
 
         labels = {'pais': 'Pais ',
@@ -22,6 +24,8 @@ class DomicilioForm(forms.ModelForm):
                   'barrio': 'Barrio ',
                   'calle': 'Calle ',
                   'numero': 'Nº ',
+                  'departamento': 'Departamento',
+                  'piso': 'Piso',
                   'observaciones': 'Observaciones '
                   }
 
@@ -31,6 +35,8 @@ class DomicilioForm(forms.ModelForm):
                    'barrio': forms.TextInput(attrs={'class': 'form-control'}),
                    'calle': forms.TextInput(attrs={'class': 'form-control'}),
                    'numero': forms.TextInput(attrs={'class': 'form-control'}),
+                   'departamento': forms.TextInput(attrs={'class': 'form-control'}),
+                   'piso': forms.TextInput(attrs={'class': 'form-control'}),
                    'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows':2})
                    }
 
@@ -78,6 +84,37 @@ class BeneficiarioForm(forms.ModelForm):
                    'fecha_de_nacimiento': widgets.DateWidget(attrs={'id': 'id_fecha', 'class': 'form-control'}, bootstrap_version=3, options=dateTimeOptions),
                    'email': forms.EmailInput(attrs={'class': 'form-control'}),
                    'telefono': forms.TextInput(attrs={'class': 'form-control'})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class NotificacionForm(forms.ModelForm):
+    class Meta:
+        dateTimeOptions = {
+            'format': 'dd/mm/yyyy',
+            'autoclose': True
+        }
+        model = Notificacion
+        fields = (
+                  'escala',
+                  'escalaDos',
+                  'asunto',
+                  'estado')
+
+        labels = {
+                  'escala': 'Escala1 ',
+                  'escalaDos': 'Escala2 ',
+                  'asunto': 'Asunto ',
+                  'estado': 'Estado '
+                  }
+
+        widgets = {
+                   'escala': forms.TextInput(attrs={'class': 'form-control'}),
+                   'escalaDos': forms.TextInput(attrs={'class': 'form-control'}),
+                   'asunto': forms.TextInput(attrs={'class': 'form-control'}),
+                   'estado': forms.TextInput(attrs={'class': 'form-control'})
+                  }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -148,6 +185,10 @@ class PrestacionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+SEXO=[
+  ('Primera Consulta','Primera Consulta'),
+  ('Paciente del Profesional','Paciente del Profesional')
+  ]
 
 class DerivacionForm(forms.ModelForm):
     class Meta:
@@ -168,7 +209,7 @@ class DerivacionForm(forms.ModelForm):
                    'prestacion': forms.Select(attrs={'class': 'form-control'}),
                    'fecha_hora': widgets.DateTimeWidget(attrs={'id': 'id_fecha', 'class': 'form-control'},
                                                    bootstrap_version=3, options=dateTimeOptions),
-                   'motivo': forms.TextInput(attrs={'class': 'form-control'}),
+                   'motivo': forms.Select(choices=SEXO),
                    'observacion': forms.Textarea(attrs={'class': 'form-control'})
                    }
 

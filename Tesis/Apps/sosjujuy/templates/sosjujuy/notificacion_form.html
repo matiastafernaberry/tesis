@@ -1,0 +1,68 @@
+{% extends "sosjujuy/base_site.html" %}
+
+{% block content %}
+    <div class="right_col" role="main">
+
+        <form method="post" id="notificacionForm" novalidate>
+            <div class="">
+                <div class="page-title">
+                    <div class="col-md-4">
+                        <h3>Registrar Notificación</h3>
+                    </div>
+                </div>
+                </br>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="col-md-11" align="right">
+                            <div class="x_panel border-aero">
+                                
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="row">
+                                        <div class="col-md-4" align="left" style="margin-top:8px">{{ form.field }}
+                                            {{ field.label_tag }}
+                                        </div>
+                                        <div class="col-md-5 " style="margin-bottom: 5px">
+                                            {{ field }}
+                                            <a style="color:red">{{ field.errors }} </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" align="right"><img src="/static/images/sosjujuy_index.jpg"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class=" col-md-6">
+
+                        <button type="submit" class="btn btn-primary col-md-3 border-dark"><b>Guardar</b></button>
+                        <a href="{% url 'beneficiario_changelist' %}" class="btn btn-danger col-md-3 border-dark">Cancelar</a>
+                    </div>
+                </div>
+                <script>
+                    function comprobarNombre(valor, campo) {
+
+                        var mensaje = "";
+
+                        // comprobar los posibles errores
+                        if ("" === this.value) {
+                            mensaje = "El email no puede estar vacío";
+                        } else if (this.value.indexOf("@") < 0) {
+                            mensaje = "El email debe contener una @";
+                        } else if (this.value.indexOf(".com", this.value.indexOf("@")) < 0) {
+                            mensaje = "El email debe contener .com detras de la @";
+                        }
+
+                        // mostrar/resetear mensaje (el mensaje se resetea poniendolo a "")
+                        this.setCustomValidity(mensaje);
+                    }
+                </script>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

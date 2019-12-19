@@ -6,22 +6,28 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.views import View
 
-from .models import Pais
+from .models import Pais, Provincia, Beneficiario
 
 
 class Search(View):
-    def get(self, request):
-        # <view logic>
-        # return HttpResponse('result')
-        obj = {
-          'data': "texto", 
-        } 
-        return JsonResponse(obj, status=200)
-
     def post(self, request):
-        # <view logic>
-        # return HttpResponse('result')
         url = request.POST["url"]
         data = Pais.objects.all()
+        qs_json = serializers.serialize('json', data)
+        return HttpResponse(qs_json, content_type='application/json')
+
+
+class ProvinciaListado(View):
+    def post(self, request):
+        url = request.POST["url"]
+        data = Provincia.objects.all()
+        qs_json = serializers.serialize('json', data)
+        return HttpResponse(qs_json, content_type='application/json')
+
+
+class BeneficiarioListado(View):
+    def post(self, request):
+        url = request.POST["url"]
+        data = Beneficiario.objects.all()
         qs_json = serializers.serialize('json', data)
         return HttpResponse(qs_json, content_type='application/json')
