@@ -72,6 +72,8 @@ class Domicilio(models.Model):
     barrio = models.CharField(max_length=60, null=True)
     calle = models.CharField(max_length=60)
     numero = models.CharField(max_length=60)
+    departamento = models.CharField(max_length=60, null=True)
+    piso = models.CharField(max_length=60, null=True)
     observaciones = models.CharField(max_length=100, null=True)
 
     def domicilio_completo(self):
@@ -89,7 +91,6 @@ class Antecedente(models.Model):
 
 
 class Beneficiario(Persona):
-    numero_beneficiario = models.IntegerField()
     domicilio_legal = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True,
                                         related_name='domicilio_legal')
     domicilio_real = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True,
@@ -113,7 +114,7 @@ class Disponibilidad_horaria(models.Model):
 class Prestacion(models.Model):
     rubro = models.CharField(max_length=300)
     dias_disponibles = models.ForeignKey(Disponibilidad_horaria, on_delete=models.SET_NULL, blank=True, null=True)
-    domicilio = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True)
+    #domicilio = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True)
     porcentaje_de_cobertura = models.PositiveIntegerField()
     prestador = models.ForeignKey(Prestador, on_delete=models.SET_NULL, blank=True, null=True)
     descripcion = models.CharField(max_length=300)
@@ -126,6 +127,17 @@ class Prestacion(models.Model):
 
     def __str__(self):
         return self.prestacion_completo()
+
+
+class Notificacion(models.Model):
+    escala = models.CharField(max_length=300)
+    escalaDos = models.CharField(max_length=300)
+    asunto = models.CharField(max_length=300)
+    estado = models.CharField(max_length=300)
+    fecha = models.DateTimeField(auto_now_add=True)
+    archivo = models.FileField(max_length=254, null=True)
+    prestador = models.ForeignKey(Prestador, on_delete=models.SET_NULL, blank=True, null=True)
+    beneficiario = models.ForeignKey(Beneficiario, on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class ActividadExtension(models.Model):

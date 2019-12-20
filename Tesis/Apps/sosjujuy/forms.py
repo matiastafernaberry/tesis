@@ -2,7 +2,7 @@ from datetimewidget import widgets
 from django import forms
 
 from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, ActividadExtension, \
-    EncuestaAtencionBeneficiario
+    EncuestaAtencionBeneficiario, Notificacion
 
 
 class DomicilioForm(forms.ModelForm):
@@ -14,6 +14,8 @@ class DomicilioForm(forms.ModelForm):
                   'barrio',
                   'calle',
                   'numero',
+                  'departamento',
+                  'piso',
                   'observaciones')
 
         labels = {'pais': 'Pais ',
@@ -22,6 +24,8 @@ class DomicilioForm(forms.ModelForm):
                   'barrio': 'Barrio ',
                   'calle': 'Calle ',
                   'numero': 'Nº ',
+                  'departamento': 'Departamento',
+                  'piso': 'Piso',
                   'observaciones': 'Observaciones '
                   }
 
@@ -31,12 +35,18 @@ class DomicilioForm(forms.ModelForm):
                    'barrio': forms.TextInput(attrs={'class': 'form-control'}),
                    'calle': forms.TextInput(attrs={'class': 'form-control'}),
                    'numero': forms.TextInput(attrs={'class': 'form-control'}),
+                   'departamento': forms.TextInput(attrs={'class': 'form-control'}),
+                   'piso': forms.TextInput(attrs={'class': 'form-control'}),
                    'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows':2})
                    }
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
+SEXO=[
+  ('h','Hombre'),
+  ('m','Mujer'),
+  ('o','Otro')]
 
 class BeneficiarioForm(forms.ModelForm):
     class Meta:
@@ -45,7 +55,7 @@ class BeneficiarioForm(forms.ModelForm):
             'autoclose': True
         }
         model = Beneficiario
-        fields = ('numero_beneficiario',
+        fields = (
                   'nombre',
                   'apellido',
                   'tipo_documento',
@@ -55,7 +65,7 @@ class BeneficiarioForm(forms.ModelForm):
                   'email',
                   'telefono')
 
-        labels = {'numero_beneficiario': 'Nº Beneficiario ',
+        labels = {
                   'nombre': 'Nombre ',
                   'apellido': 'Apellido ',
                   'tipo_documento': 'Tipo de Documento ',
@@ -65,15 +75,76 @@ class BeneficiarioForm(forms.ModelForm):
                   'email': 'E-mail',
                   'telefono': 'Teléfono '}
 
-        widgets = {'numero_beneficiario': forms.TextInput(attrs={'class': 'form-control'}),
+        widgets = {
                    'nombre': forms.TextInput(attrs={'class': 'form-control'}),
                    'apellido': forms.TextInput(attrs={'class': 'form-control'}),
                    'tipo_documento': forms.Select(attrs={'class': 'form-control'}),
                    'documento': forms.TextInput(attrs={'class': 'form-control'}),
-                   'sexo': forms.TextInput(attrs={'class': 'form-control'}),
+                   'sexo': forms.RadioSelect(choices=SEXO),
                    'fecha_de_nacimiento': widgets.DateWidget(attrs={'id': 'id_fecha', 'class': 'form-control'}, bootstrap_version=3, options=dateTimeOptions),
                    'email': forms.EmailInput(attrs={'class': 'form-control'}),
                    'telefono': forms.TextInput(attrs={'class': 'form-control'})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+ESCALA=[
+  ('Auditoria','Auditoria'),
+  ('Solicitud','Solicitud'),
+  ('Actividades de Extension','Actividades de Extension'),
+  ('Beneficiarios', 'Beneficiarios'),
+  ('Atencion y Derivacion', 'Atencion y Derivacion')
+  ]
+
+ESCALADOS=[
+  ('Reporte','Reporte'),
+  ('Solicitud de Audiencia', 'Solicitud de Audiencia'),
+  ('Pedido Extraordinario', 'Pedido Extraordinario')
+  ]
+
+ESTADO=[
+  ('Iniciado','Iniciado'),
+  ('Enviado','Enviado'),
+  ('Pendiente','Pendiente'),
+  ('Anulado','Anulado'),
+  ('Aprobado','Aprobado'),
+  ('Rechazado','Rechazado'),
+  ('Finalizado','Finalizado')
+  ]
+
+class NotificacionForm(forms.ModelForm):
+    class Meta:
+        dateTimeOptions = {
+            'format': 'dd/mm/yyyy',
+            'autoclose': True
+        }
+        model = Notificacion
+        fields = (
+                  'escala',
+                  'escalaDos',
+                  'asunto',
+                  'estado',
+                  'archivo',
+                  'prestador',
+                  'beneficiario')
+
+        labels = {
+                  'escala': 'Escala1 ',
+                  'escalaDos': 'Escala2 ',
+                  'asunto': 'Asunto ',
+                  'estado': 'Estado ',
+                  'archivo': 'Adjuntar',
+                  'prestador': 'Prestador',
+                  'beneficiario': 'Beneficiario'
+                  }
+
+        widgets = {
+                   'escala': forms.Select(choices=ESCALA),
+                   'escalaDos': forms.Select(choices=ESCALADOS),
+                   'asunto': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+                   'estado': forms.Select(choices=ESTADO)
+                  }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -133,16 +204,21 @@ class PrestacionForm(forms.ModelForm):
                   'condiciones_de_prestacion': 'Condiciones',
                   'aclaraciones': 'Observaciones'}
 
-        widgets = {'rubro': forms.TextInput(attrs={'class': 'form-control'}),
-                   'prestador': forms.Select(attrs={'class': 'form-control'}),
-                   'porcentaje_de_cobertura': forms.TextInput(attrs={'class': 'form-control'}),
-                   'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
-                   'condiciones_de_prestacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
-                   'aclaraciones': forms.Textarea(attrs={'class': 'form-control', 'rows':3})}
+        widgets = {
+          'rubro': forms.TextInput(attrs={'class': 'form-control'}),
+          'prestador': forms.Select(attrs={'class': 'form-control'}),
+          'porcentaje_de_cobertura': forms.TextInput(attrs={'class': 'form-control'}),
+          'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+          'condiciones_de_prestacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+          'aclaraciones': forms.Textarea(attrs={'class': 'form-control', 'rows':3})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+MOTIVOS=[
+  ('Primera Consulta','Primera Consulta'),
+  ('Paciente del Profesional','Paciente del Profesional')
+  ]
 
 class DerivacionForm(forms.ModelForm):
     class Meta:
@@ -163,7 +239,7 @@ class DerivacionForm(forms.ModelForm):
                    'prestacion': forms.Select(attrs={'class': 'form-control'}),
                    'fecha_hora': widgets.DateTimeWidget(attrs={'id': 'id_fecha', 'class': 'form-control'},
                                                    bootstrap_version=3, options=dateTimeOptions),
-                   'motivo': forms.TextInput(attrs={'class': 'form-control'}),
+                   'motivo': forms.Select(choices=MOTIVOS),
                    'observacion': forms.Textarea(attrs={'class': 'form-control'})
                    }
 

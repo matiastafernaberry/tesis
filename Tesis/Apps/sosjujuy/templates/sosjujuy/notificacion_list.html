@@ -20,10 +20,10 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_title">
-                <h2>Beneficiarios</h2>
+                <h2>Notificaciones</h2>
                 <div class="alignright">
-                    <a class="btn btn-primary" href="{% url 'beneficiario_add' %}">
-                        <i class="fa fa-bars"></i> Nuevo Beneficiario</a>
+                    <a class="btn btn-primary" href="{% url 'notificacion_add' %}">
+                        <i class="fa fa-bars"></i> Nueva Notificacion</a>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -31,29 +31,32 @@
               <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <td align="center" class="col-md-2"><b><u>Nº Beneficiario</u></b></td>
-                    <td align="center" class="col-md-3"><b><u>Nº de Documento</u></b></td>
-                    <td align="center" class="col-md-5"><b><u>Nombre y Apellido</u></b></td>
-                    <td align="center" class="col-md-5"><b><u>Direccion</u></b></td>
-                    <td align="center" class="col-md-3"><b><u>Acción</u></b></td>
+                    <td align="center" class="col-md-2"><b><u>Nº Notificacion</u></b></td>
+                    <td align="center" class="col-md-3"><b><u>Escala1</u></b></td>
+                    <td align="center" class="col-md-5"><b><u>Escala2</u></b></td>
+                    <td align="center" class="col-md-5"><b><u>Asunto</u></b></td>
+                    <td align="center" class="col-md-3"><b><u>Estado</u></b></td>
+                    <td align="center" class="col-md-3"><b><u>Fecha</u></b></td>
+                    <td align="center" class="col-md-3"><b><u>Acciones</u></b></td>
                 </tr>
                 </thead>
                 <tbody>
                 {% if object_list %}
-                    {% for beneficiario in object_list %}
+                    {% for notificacion in object_list %}
                         <tr>
-                            <td align="center" class="col-md-2"><h2>{{ beneficiario.id }}</h2></td>
-                            <td align="center" class="col-md-2"><h2>{{ beneficiario.documento }}</h2></td>
-                            <td align="center" class="col-md-3"><h2>{{ beneficiario.nombre }} {{beneficiario.apellido}}</h2></td>
-                            <td align="center" class="col-md-4"><h2>{{ beneficiario.domicilio_legal.calle }}
-                                {{ beneficiario.domicilio_legal.numero }} - {{ beneficiario.domicilio_legal.barrio }}</h2></td>
+                            <td align="center" class="col-md-2"><h2>{{ notificacion.id }}</h2></td>
+                            <td align="center" class="col-md-2"><h2>{{ notificacion.escala }}</h2></td>
+                            <td align="center" class="col-md-3"><h2>{{ notificacion.escalaDos }}</h2></td>
+                            <td align="center" class="col-md-4"><h2>{{ notificacion.asunto }}</h2></td>
+                            <td align="center" class="col-md-4"><h2>{{ notificacion.estado }}</h2></td>
+                            <td align="center" class="col-md-4"><h2>{{ notificacion.fecha|date:"d-m-Y" }}</h2></td>
                             <td align="center" class="col-md-1">
-                                <a class="btn btn-success" href="{% url 'beneficiario_change' beneficiario.id %}">Editar</a>
+                                <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.id %}">Editar</a>
                             </td>
                         </tr>
                     {% endfor %}
                 {% else %}
-                    <h1>No hay registros de Beneficiarios</h1>
+                    <h1>No hay Notificaciones</h1>
                 {% endif %}
                 </tbody>
               </table>

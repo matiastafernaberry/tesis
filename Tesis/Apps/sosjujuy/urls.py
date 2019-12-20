@@ -1,11 +1,20 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.conf.urls.static import static
+from django.conf import settings
 
 from . import views
+from . import search
 
 urlpatterns = [
     path('', views.index, name='index'),
+    # buscadores
+    path('search/', login_required(search.Search.as_view()), name='buscador'),
+    path('provincias/', login_required(search.ProvinciaListado.as_view()), name='provincia'),
+    path('beneficiariosearch/', login_required(search.BeneficiarioListado.as_view()), name='provincia'),
+    path('prestadorsearch/', login_required(search.PrestadorListado.as_view()), name='buscador_prestador'),
+    # find buscadores
     path('reportes/', views.reports, name='reports'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('signup/', views.signup, name='signup'),
@@ -17,7 +26,12 @@ urlpatterns = [
     path('beneficiarios/', login_required(views.BeneficiarioListView.as_view()), name='beneficiario_changelist'),
     path('beneficiario/', login_required(views.BeneficiarioCreateView.as_view()), name='beneficiario_add'),
     path('beneficiario/<int:pk>/', login_required(views.BeneficiarioUpdateView.as_view()), name='beneficiario_change'),
-    path('beneficiariodelete/<beneficiario_id>', login_required(views.deleteBeneficiario), name='beneficiario_delete'),
+    path('beneficiarodelete/<beneficiario_id>', login_required(views.deleteBeneficiario), name='beneficiario_delete'),
+    # notificaciones
+    path('notificaciones/', login_required(views.NotificacionesListView.as_view()), name='notificacion_changelist'),
+    path('notificacion/', login_required(views.NotificacionCreateView.as_view()), name='notificacion_add'),
+    path('notificacion/<int:pk>/', login_required(views.NotificacionUpdateView.as_view()), name='notificacion_change'),
+    # fin notificaciones
     path('prestadores/', login_required(views.PrestadorListView.as_view()), name='prestador_changelist'),
     path('prestador/', login_required(views.PrestadorCreateView.as_view()), name='prestador_add'),
     path('prestador/<int:pk>/', login_required(views.PrestadorUpdateView.as_view()), name='prestador_change'),
@@ -36,6 +50,6 @@ urlpatterns = [
     path('actividad_extensiondelete/<actividad_extension_id>', login_required(views.deleteActividadExtension), name='actividad_extension_delete'),
     path('encuesta_beneficiario/<int:pk_beneficiario>_<int:pk_derivacion>', views.EncuestaAtencionBeneficiarioCreateView.as_view(), name='encuesta_beneficiario_add'),
     path(r'report_builder/', include('report_builder.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -11,6 +11,8 @@
       {% endblock meta %}
 
       {% block headjavascripts %}
+        <link rel="stylesheet" href="/static/build/css/prism.css">
+        <link rel="stylesheet" href="/static/build/css/chosen.css">
         <!-- jQuery -->
         <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -49,7 +51,11 @@
   </head>
 
   <body class="{% block body_class %}nav-md {% endblock body_class %}">
+
     {% block body %}
+    {% csrf_token %}
+
+
       <div class="container body">
         <div class="main_container">
 
@@ -106,7 +112,11 @@
         <script src="/static/vendors/starrr/dist/starrr.js"></script>
       {% endblock %}
       <!-- Custom Theme Scripts -->
+      <script src="/static/build/js/chosen.jquery.js" type="text/javascript" charset="utf-8"></script>
+      <script src="/static/build/js/prism.js" type="text/javascript" charset="utf-8"></script>
+      
       <script src="/static/build/js/custom.js"></script>
+      <script src="/static/build/js/index.js"></script>
     {% endblock body %}
   </body>
 </html>

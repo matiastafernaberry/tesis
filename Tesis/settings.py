@@ -16,6 +16,16 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DATE_INPUT_FORMATS = [
+
+    '%d %b %Y', '%d %b, %Y',            # '25 Oct 2006', '25 Oct, 2006'
+   
+]
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -27,7 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'sosjujuy.com',
-    'localhost',
+    'localhost'
                  ]
 
 
@@ -43,7 +53,8 @@ INSTALLED_APPS = [
     'Tesis.Apps.sosjujuy',
     'report_builder',
     'datetimewidget',
-    'easy_pdf'
+    'easy_pdf',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -87,8 +98,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sosjujuy',
-        'USER': 'admin',
-        'PASSWORD': 'password',
+        'USER': 'root',
+        'PASSWORD': '',
     }
 }
 
@@ -149,6 +160,6 @@ LOGIN_URL = 'login'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sos.jujuy2018@gmail.com'
+EMAIL_HOST_USER = 'sos.jujuy.2020@gmail.com'
 EMAIL_HOST_PASSWORD = 'sosjujuy_2018'
 EMAIL_USE_TLS = True
