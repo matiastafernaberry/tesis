@@ -72,8 +72,8 @@ class Domicilio(models.Model):
     barrio = models.CharField(max_length=60, null=True)
     calle = models.CharField(max_length=60)
     numero = models.CharField(max_length=60)
-    departamento = models.CharField(max_length=60, null=True)
-    piso = models.CharField(max_length=60, null=True)
+    piso = models.CharField(max_length=60, null=True, blank=True)
+    departamento = models.CharField(max_length=60, null=True, blank=True)
     observaciones = models.CharField(max_length=100, null=True)
 
     def domicilio_completo(self):

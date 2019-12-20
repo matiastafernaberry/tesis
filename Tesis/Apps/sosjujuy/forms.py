@@ -14,8 +14,8 @@ class DomicilioForm(forms.ModelForm):
                   'barrio',
                   'calle',
                   'numero',
-                  'departamento',
                   'piso',
+                  'departamento',
                   'observaciones')
 
         labels = {'pais': 'Pais ',
@@ -24,9 +24,9 @@ class DomicilioForm(forms.ModelForm):
                   'barrio': 'Barrio ',
                   'calle': 'Calle ',
                   'numero': 'Nº ',
-                  'departamento': 'Departamento',
                   'piso': 'Piso',
-                  'observaciones': 'Observaciones '
+                  'departamento': 'Departamento',
+                  'observaciones': 'Observaciones'
                   }
 
         widgets = {'pais': forms.Select(attrs={'class': 'form-control'}),
@@ -35,8 +35,8 @@ class DomicilioForm(forms.ModelForm):
                    'barrio': forms.TextInput(attrs={'class': 'form-control'}),
                    'calle': forms.TextInput(attrs={'class': 'form-control'}),
                    'numero': forms.TextInput(attrs={'class': 'form-control'}),
-                   'departamento': forms.TextInput(attrs={'class': 'form-control'}),
                    'piso': forms.TextInput(attrs={'class': 'form-control'}),
+                   'departamento': forms.TextInput(attrs={'class': 'form-control'}),
                    'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows':2})
                    }
 

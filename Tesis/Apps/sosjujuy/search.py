@@ -19,8 +19,10 @@ class Search(View):
 
 class ProvinciaListado(View):
     def post(self, request):
-        url = request.POST["url"]
-        data = Provincia.objects.all()
+        valueId = request.POST["value"]
+        if valueId == 0: data = {}
+        else: data = Provincia.objects.filter(pais__id=valueId)
+        
         qs_json = serializers.serialize('json', data)
         return HttpResponse(qs_json, content_type='application/json')
 
