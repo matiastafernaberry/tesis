@@ -27,13 +27,24 @@ $( document ).ready(function() {
 	});	
 
 	$("#DerivacionForm").submit(function( event ) {
-    	var textBene = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
+    	var textBene = $("a[class=chosen-single]")[0].text.replace(/^\s/g, '').replace(/^\s/g, '').replace(/^\s/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').split(" ")[0];
 	  	var benefiList = JSON.parse(localStorage.getItem('beneficiario'));	  	
+
+	  	var textPres = $("a[class=chosen-single]")[1].text.replace(/^\s/g, '').replace(/^\s/g, '').replace(/^\s/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').split(" ")[0];
+	  	var presfiList = JSON.parse(localStorage.getItem('prestacion'));	  	
+
         $("<input />").attr("type", "hidden")
           .attr("name", "beneficiario")
           .attr("value", benefiList[textBene])
           .attr("id", "id_beneficiario")
           .attr("data", textBene)
+          .appendTo("#DerivacionForm");
+
+        $("<input />").attr("type", "hidden")
+          .attr("name", "prestacion")
+          .attr("value", presfiList[textPres])
+          .attr("id", "id_prestacion")
+          .attr("data", textPres)
           .appendTo("#DerivacionForm");
 	});	
 
@@ -83,6 +94,14 @@ $( document ).ready(function() {
 		    	loadDerivacion(datos);
 		    },
 		});
+		$.ajax({
+		    type:"POST", 
+		    url:"/prestadorsearch/", 
+		    data:{url:"Z562316", "csrfmiddlewaretoken": tok},
+		    success:function(datos){ 
+		    	loadPrestacion(datos);
+		    },
+		});
 	}
 
 	// si existe el formulario hace el pedido ajax
@@ -116,7 +135,7 @@ function loadBeneficiario(datos){
 		var valSelect = $("#id_pais option:selected").val();
 		//console.log(valSelect);
 		$("#id_pais").parent().append(
-			`<select data-placeholder="Elija un País..." class="chosen-select id_pais" tabindex="2">
+			`<select data-placeholder="Seleccione un País..." class="chosen-select id_pais" tabindex="2">
             <option value=""></option>`);
 
 		var paises = {};
@@ -142,12 +161,12 @@ function loadProvincia(datos){
 		var valSelect = $("#id_provincia option:selected").val();
 		//console.log(valSelect);
 		$("#id_provincia").parent().append(
-			`<select data-placeholder="Elija una Provincia..." class="chosen-select id_provincia" tabindex="2">
+			`<select data-placeholder="Seleccione una Provincia..." class="chosen-select id_provincia" tabindex="2">
             <option value=""></option>`);
 
 		if ($(".id_provincia").next()){
 			$(".id_provincia").parent().append(
-			`<select data-placeholder="Elija una Provincia..." class="chosen-select id_provincia" tabindex="2">
+			`<select data-placeholder="Seleccione una Provincia..." class="chosen-select id_provincia" tabindex="2">
             <option value=""></option>`);
 
 			$(".id_provincia").next().remove();
@@ -211,7 +230,7 @@ function loadDerivacion(datos){
 		var valSelect = $("#id_beneficiario option:selected").val();
 		//console.log(valSelect);
 		$("#id_beneficiario").parent().append(
-			`<select data-placeholder="Elija un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
+			`<select data-placeholder="Seleccione un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
             <option value=""></option>`);
 
 		var beneficiario = {};
@@ -219,7 +238,7 @@ function loadDerivacion(datos){
     		//console.log(datos[x]["pk"]);
 
     		beneficiario[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
-    		$(".id_beneficiario").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
+    		$(".id_beneficiario").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]+" "+datos[x]["fields"]["apellido"]));
     	}
     	//console.log(typeof  paises);
 	    localStorage.setItem('beneficiario', JSON.stringify(beneficiario));
@@ -238,7 +257,7 @@ function loadPrestador(datos){
 		var valSelect = $("#id_prestador option:selected").val();
 		//console.log(valSelect);
 		$("#id_prestador").parent().append(
-			`<select data-placeholder="Elija un Prestador..." class="chosen-select id_prestador" tabindex="2">
+			`<select data-placeholder="Seleccione un Prestador..." class="chosen-select id_prestador" tabindex="2">
             <option value=""></option>`);
 
 		var prestador = {};
@@ -256,6 +275,33 @@ function loadPrestador(datos){
 	}
 };
 
+function loadPrestacion(datos){
+	var textSelect = $("#id_prestacion option:selected").text();
+	// en el editar esta el select comun
+	if (textSelect == "---------"){
+		//
+		//console.log(textSelect);
+		var valSelect = $("#id_prestacion option:selected").val();
+		//console.log(valSelect);
+		$("#id_prestacion").parent().append(
+			`<select data-placeholder="Seleccione un Prestador..." class="chosen-select id_prestacion" tabindex="2">
+            <option value=""></option>`);
+
+		var prestacion = {};
+		for (x in datos) {
+    		//console.log(datos[x]["pk"]);
+
+    		prestacion[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
+    		$(".id_prestacion").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
+    	}
+    	//console.log(typeof  paises);
+	    localStorage.setItem('prestacion', JSON.stringify(prestacion));
+
+	    $(".id_prestacion").chosen({width: "100%"});
+	    $("#id_prestacion").remove(); 	    
+	}
+};
+
 function loadBeneficiarioNotificacion(datos){
 	var textSelect = $("#id_beneficiario option:selected").text();
 	// en el editar esta el select comun
@@ -265,7 +311,7 @@ function loadBeneficiarioNotificacion(datos){
 		var valSelect = $("#id_beneficiario option:selected").val();
 		//console.log(valSelect);
 		$("#id_beneficiario").parent().append(
-			`<select data-placeholder="Elija un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
+			`<select data-placeholder="Seleccione un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
             <option value=""></option>`);
 
 		var beneficiario = {};
