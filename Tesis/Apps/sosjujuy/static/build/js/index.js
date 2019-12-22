@@ -23,7 +23,6 @@ $( document ).ready(function() {
           .attr("id", "provincia")
           .attr("data", textProvincia)
           .appendTo("#beneficiarioForm");
-
 	});	
 
 	$("#DerivacionForm").submit(function( event ) {
@@ -49,6 +48,9 @@ $( document ).ready(function() {
 	});	
 
 	$("#notificacionForm").submit(function( event ) {
+		$('#id_estado').prop("disabled", false);
+		$('#id_estado option[value="Iniciado"]').attr('selected','selected');
+
     	var textPrestador = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
 	  	var prestadorList = JSON.parse(localStorage.getItem('prestador'));	  	
         $("<input />").attr("type", "hidden")
@@ -107,6 +109,8 @@ $( document ).ready(function() {
 	// si existe el formulario hace el pedido ajax
 	var notificacionForm = document.getElementById('notificacionForm');
 	if (notificacionForm != null){
+		$('#id_estado').prop('disabled', 'disabled');
+
 		$.ajax({
 		    type:"POST", 
 		    url:"/prestadorsearch/", 
@@ -260,6 +264,11 @@ function loadPrestador(datos){
 			`<select data-placeholder="Seleccione un Prestador..." class="chosen-select id_prestador" tabindex="2">
             <option value=""></option>`);
 
+		$("#id_prestador").parent().append(
+			`<a href="/prestador/" title="Agregar Prestador">
+	          <span class="glyphicon glyphicon-plus"></span>
+	        </a>`);
+
 		var prestador = {};
 		for (x in datos) {
     		//console.log(datos[x]["pk"]);
@@ -273,6 +282,45 @@ function loadPrestador(datos){
 	    $(".id_prestador").chosen({width: "100%"});
 	    $("#id_prestador").remove(); 	    
 	}
+
+	try{	
+    	var paisSelect = $("#id_prestador");
+    	$(document).on('change', paisSelect, function() {
+    		try{
+    			var paisText = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
+    			//alert(paisText);
+		    } catch(error) {
+	  			var paisText = "";
+	  		}   	  
+    		if (!localStorage.getItem('prestador')){
+    			//
+    		} else {
+    			var paisTextSave = localStorage.getItem('prestador');
+    			if (paisText == paisTextSave){
+    				return false;
+    			} 
+    		}
+    		
+    		var paisesList = JSON.parse(localStorage.getItem('prestador'));
+			console.log(paisesList[paisText]);
+			$.ajax({
+			    type:"POST", 
+			    url:"/prestador/get/", 
+			    data:{value:paisesList[paisText], "csrfmiddlewaretoken": tok},
+			    success:function(datos){ 
+			    	//$(".id_provincia").next().remove();
+			    	$("#nombre_prestador").val(datos[0]["fields"]["nombre"]);
+			    	$("#apellido_prestador").val(datos[0]["fields"]["apellido"]);
+			    	$("#documento_prestador").val(datos[0]["fields"]["documento"]);
+			    	$("#matricula_prestador").val(datos[0]["fields"]["matricula"]);
+			    	//console.log(datos[0]["fields"]["apellido"]);
+			    },
+			});
+		});
+
+	} catch(error) {
+  		//console.error(error);
+  	}   	    
 };
 
 function loadPrestacion(datos){
@@ -313,6 +361,10 @@ function loadBeneficiarioNotificacion(datos){
 		$("#id_beneficiario").parent().append(
 			`<select data-placeholder="Seleccione un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
             <option value=""></option>`);
+		$("#id_beneficiario").parent().append(
+			`<a href="/beneficiario/" title="Agregar Beneficiario">
+	          <span class="glyphicon glyphicon-plus"></span>
+	        </a>`);
 
 		var beneficiario = {};
 		for (x in datos) {
@@ -327,4 +379,45 @@ function loadBeneficiarioNotificacion(datos){
 	    $(".id_beneficiario").chosen({width: "100%"});
 	    $("#id_beneficiario").remove(); 	    
 	}
+
+	try{	
+    	var paisSelect = $("#id_beneficiario");
+    	$(document).on('change', paisSelect, function() {
+    		try{
+    			var paisText = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
+    			//alert(paisText);
+		    } catch(error) {
+	  			var paisText = "";
+	  		}   	  
+    		if (!localStorage.getItem('beneficiario2')){
+    			//
+    		} else {
+    			var paisTextSave = localStorage.getItem('beneficiario2');
+    			if (paisText == paisTextSave){
+    				return false;
+    			} 
+    		}
+    		
+    		var paisesList = JSON.parse(localStorage.getItem('beneficiario2'));
+    		textBeneficiario = $("a[class=chosen-single]")[1].text.replace(/\s/g, '')
+			//console.log(paisesList[textBeneficiario]);
+			$.ajax({
+			    type:"POST", 
+			    url:"/beneficiario/get/", 
+			    data:{value:paisesList[textBeneficiario], "csrfmiddlewaretoken": tok},
+			    success:function(datos){ 
+			    	//$(".id_provincia").next().remove();
+			    	$("#nombre_beneficiario").val(datos[0]["fields"]["nombre"]);
+			    	$("#apellido_beneficiario").val(datos[0]["fields"]["apellido"]);
+			    	$("#documento_beneficiario").val(datos[0]["fields"]["documento"]);
+			    	//console.log(datos[0]["fields"]["apellido"]);
+			    },
+			}).fail( function( jqXHR, textStatus, errorThrown ) {
+			    console.log(errorThrown);
+			});
+		});
+
+	} catch(error) {
+  		//console.error(error);
+  	}   	    
 };

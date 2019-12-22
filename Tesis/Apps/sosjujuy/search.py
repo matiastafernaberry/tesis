@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import traceback
 
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -41,3 +42,23 @@ class PrestadorListado(View):
         data = Prestador.objects.all()
         qs_json = serializers.serialize('json', data)
         return HttpResponse(qs_json, content_type='application/json')
+
+
+class PrestadorGetView(View):
+    def post(self, request):
+        valueId = request.POST["value"]
+        data = Prestador.objects.filter(id=valueId)
+        
+        qs_json = serializers.serialize('json', data)
+        return HttpResponse(qs_json, content_type='application/json')
+
+
+class BeneficiarioGetView(View):
+    def post(self, request):
+        try:
+            valueId = request.POST["value"]
+            data = Beneficiario.objects.filter(id=valueId)
+            
+            qs_json = serializers.serialize('json', data)
+            return HttpResponse(qs_json, content_type='application/json')
+        except: print(traceback.print_exc())

@@ -14,14 +14,14 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="col-md-11" align="right">
+                        <div class="col-md-12" align="right">
                             <div class="x_panel border-aero">
                                 
                                 {% csrf_token %}
                                 <div class="row">
                                 {% for field in form %}
                                     <div class="col-md-2" align="left" style="margin-top:8px">
-                                        {% if forloop.counter == 6 or forloop.counter == 7  %}
+                                        {% if forloop.counter == 7 or forloop.counter == 8  %}
                                             
                                         {% else %}
                                             {{ form.field }}
@@ -32,11 +32,11 @@
                                         {{ field }}
                                         <a style="color:red">{{ field.errors }} </a>
                                     </div>
-                                    {% if forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 5  %}
+                                    {% if forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 6  %}
                                         </div>
                                         <div class="row" style="margin-top: 2rem">
                                     {% endif %}
-                                    {% if forloop.counter == 7  %}
+                                    {% if forloop.counter == 8  %}
                                         <div class="col-md-6" style="text-align: center;margin-top: 1rem" id="prestador_campos">
 
                                             <div class="col-md-4"></div>
@@ -45,7 +45,7 @@
                                                     <label for="id_escala">Nombre:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="nombrePrestador" id="nombre_prestador">
                                                 </div>
                                             </div>
 
@@ -55,7 +55,7 @@
                                                     <label for="id_escala">Apellido:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="ApellidoPrestador" id="apellido_prestador">
                                                 </div>
                                             </div>
 
@@ -65,7 +65,7 @@
                                                     <label for="id_escala">Documento:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="documentoPrestador" id="documento_prestador">
                                                 </div>
                                             </div>
 
@@ -75,7 +75,7 @@
                                                     <label for="id_escala">Matricula:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="matriculaPrestador" id="matricula_prestador">
                                                 </div>
                                             </div>
                                             
@@ -88,7 +88,7 @@
                                                     <label for="id_escala">Nombre:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="nombreBeneficiario" id="nombre_beneficiario">
                                                 </div>
                                             </div>
 
@@ -98,7 +98,7 @@
                                                     <label for="id_escala">Apellido:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="apellidoBeneficiario" id="apellido_beneficiario">
                                                 </div>
                                             </div>
 
@@ -108,7 +108,7 @@
                                                     <label for="id_escala">Documento:</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="documentoBeneficiario" id="documento_beneficiario">
                                                 </div>
                                             </div>
                                         </div>
@@ -124,8 +124,9 @@
                     <div class="col-md-2"></div>
                     <div class=" col-md-6">
 
-                        <button type="submit" class="btn btn-primary col-md-3 border-dark"><b>Guardar</b></button>
-                        <a href="{% url 'beneficiario_changelist' %}" class="btn btn-danger col-md-3 border-dark">Cancelar</a>
+                        <button type="submit" class="btn btn-primary col-md-3 border-dark"><b>Enviar</b></button>
+                        <a href="{% url 'notificacion_changelist' %}" class="btn btn-primary col-md-3 border-dark">Aceptar</a>
+                        <a href="{% url 'notificacion_changelist' %}" class="btn btn-danger col-md-3 border-dark">Cancelar</a>
                     </div>
                 </div>
                 <script>

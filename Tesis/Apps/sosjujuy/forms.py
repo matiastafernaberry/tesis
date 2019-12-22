@@ -125,6 +125,7 @@ class NotificacionForm(forms.ModelForm):
                   'escalaDos',
                   'asunto',
                   'estado',
+                  'observacion',
                   'archivo',
                   'prestador',
                   'beneficiario')
@@ -134,6 +135,7 @@ class NotificacionForm(forms.ModelForm):
                   'escalaDos': 'Escala2 ',
                   'asunto': 'Asunto ',
                   'estado': 'Estado ',
+                  'observacion': 'Observaciones',
                   'archivo': 'Adjuntar',
                   'prestador': 'Prestador',
                   'beneficiario': 'Beneficiario'
@@ -142,8 +144,10 @@ class NotificacionForm(forms.ModelForm):
         widgets = {
                    'escala': forms.Select(choices=ESCALA),
                    'escalaDos': forms.Select(choices=ESCALADOS),
-                   'asunto': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
-                   'estado': forms.Select(choices=ESTADO)
+                   'asunto': forms.TextInput(attrs={'class': 'form-control'}),
+                   'estado': forms.Select(choices=ESTADO),
+                   'archivos': forms.ClearableFileInput(attrs={'multiple': True}),
+                   'observacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
                   }
 
     def __init__(self, *args, **kwargs):
