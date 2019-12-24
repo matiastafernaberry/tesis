@@ -2,7 +2,7 @@ from datetimewidget import widgets
 from django import forms
 
 from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, ActividadExtension, \
-    EncuestaAtencionBeneficiario, Notificacion
+    EncuestaAtencionBeneficiario, Notificacion, NotificacionEstado
 
 
 class DomicilioForm(forms.ModelForm):
@@ -124,9 +124,6 @@ class NotificacionForm(forms.ModelForm):
                   'escala',
                   'escalaDos',
                   'asunto',
-                  'estado',
-                  'observacion',
-                  'archivo',
                   'prestador',
                   'beneficiario')
 
@@ -134,9 +131,6 @@ class NotificacionForm(forms.ModelForm):
                   'escala': 'Escala1 ',
                   'escalaDos': 'Escala2 ',
                   'asunto': 'Asunto ',
-                  'estado': 'Estado ',
-                  'observacion': 'Observaciones',
-                  'archivo': 'Adjuntar',
                   'prestador': 'Prestador',
                   'beneficiario': 'Beneficiario'
                   }
@@ -145,7 +139,35 @@ class NotificacionForm(forms.ModelForm):
                    'escala': forms.Select(choices=ESCALA),
                    'escalaDos': forms.Select(choices=ESCALADOS),
                    'asunto': forms.TextInput(attrs={'class': 'form-control'}),
-                   'estado': forms.Select(choices=ESTADO),
+                   #'estado': forms.Select(choices=ESTADO),
+                   #'archivos': forms.ClearableFileInput(attrs={'multiple': True}),
+                   #'observacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+                  }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class NotificacionEstadoForm(forms.ModelForm):
+    class Meta:
+        dateTimeOptions = {
+            'format': 'dd/mm/yyyy',
+            'autoclose': True
+        }
+        model = NotificacionEstado
+        fields = (
+                  #'estado',
+                  'observacion',
+                  'archivo')
+
+        labels = {
+                  #'estado': 'Estado ',
+                  'observacion': 'Observaciones',
+                  'archivo': 'Adjuntar',
+                  }
+
+        widgets = {
+                   #'estado': forms.Select(choices=ESTADO),
                    'archivos': forms.ClearableFileInput(attrs={'multiple': True}),
                    'observacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
                   }

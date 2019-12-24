@@ -2,11 +2,11 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, ActividadExtension, \
-    EncuestaAtencionBeneficiario, Notificacion
+    EncuestaAtencionBeneficiario, Notificacion, NotificacionEstado
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import DomicilioForm, BeneficiarioForm, DerivacionForm, PrestadorForm, PrestacionForm, \
-    ActividadExtensionForm, EncuestaAtencionBeneficiarioForm, NotificacionForm
+    ActividadExtensionForm, EncuestaAtencionBeneficiarioForm, NotificacionForm, NotificacionEstadoForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from easy_pdf.views import PDFTemplateView
@@ -84,8 +84,6 @@ class BeneficiarioCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         form = self.form_class(request.POST)
-        print(" ")
-        print(request.POST)
         form2 = self.second_form_class(request.POST)
         if form.is_valid() and form2.is_valid():
             beneficiario = form.save(commit=False)
@@ -146,21 +144,30 @@ class NotificacionesListView(ListView):
 
 class NotificacionCreateView(CreateView):
     model = Notificacion
+    second_model = NotificacionEstado
     template_name = 'sosjujuy/notificacion_form.html'
     form_class = NotificacionForm
+    second_form_class = NotificacionEstadoForm
     success_url = reverse_lazy('notificacion_changelist')
 
     def get_context_data(self, **kwargs):
         context = super(NotificacionCreateView, self).get_context_data(**kwargs)
         if 'form' not in context:
-            context['form'] = self.form_class(self.request.GET)
+            context['form'] = self.form_class(self.request.GET or None)
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(self.request.GET or None)
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid():
+        form = self.form_class(request.POST)
+        form2 = self.second_form_class(request.POST, request.FILES)
+        if form.is_valid() and form2.is_valid():
+            notificacion = form.save(commit=False)
+            form2.notificacion = notificacion.id
+            form2.estado = "Iniciado"
             form.save()
+            form2.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))

@@ -631,6 +631,7 @@ table.no-margin .progress {
     padding-left: 10px
 }
 .row {
+    margin-top: 1rem;
     margin-right: -10px;
     margin-left: -10px
 }

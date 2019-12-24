@@ -56,8 +56,18 @@ $( document ).ready(function() {
         $("<input />").attr("type", "hidden")
           .attr("name", "prestador")
           .attr("value", prestadorList[textPrestador])
-          .attr("id", "id_beneficiario")
+          .attr("id", "id_prestador")
           .attr("data", textPrestador)
+          .appendTo("#notificacionForm");
+
+
+        var textBeneficiario = $("a[class=chosen-single]")[1].text.replace(/\s/g, '');
+	  	var beneficiarioList = JSON.parse(localStorage.getItem('beneficiario2'));	  	
+        $("<input />").attr("type", "hidden")
+          .attr("name", "beneficiario")
+          .attr("value", beneficiarioList[textBeneficiario])
+          .attr("id", "id_beneficiario")
+          .attr("data", textBeneficiario)
           .appendTo("#notificacionForm");
 	});	
 
@@ -265,7 +275,7 @@ function loadPrestador(datos){
             <option value=""></option>`);
 
 		$("#id_prestador").parent().append(
-			`<a href="/prestador/" title="Agregar Prestador">
+			`<a href="/prestador/" title="Agregar Prestador" style="float:right">
 	          <span class="glyphicon glyphicon-plus"></span>
 	        </a>`);
 
@@ -362,7 +372,7 @@ function loadBeneficiarioNotificacion(datos){
 			`<select data-placeholder="Seleccione un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
             <option value=""></option>`);
 		$("#id_beneficiario").parent().append(
-			`<a href="/beneficiario/" title="Agregar Beneficiario">
+			`<a href="/beneficiario/" title="Agregar Beneficiario" style="float:right">
 	          <span class="glyphicon glyphicon-plus"></span>
 	        </a>`);
 
@@ -399,7 +409,7 @@ function loadBeneficiarioNotificacion(datos){
     		}
     		
     		var paisesList = JSON.parse(localStorage.getItem('beneficiario2'));
-    		textBeneficiario = $("a[class=chosen-single]")[1].text.replace(/\s/g, '')
+    		textBeneficiario = $("a[class=chosen-single]")[1].text.replace(/\s/g, '');
 			//console.log(paisesList[textBeneficiario]);
 			$.ajax({
 			    type:"POST", 

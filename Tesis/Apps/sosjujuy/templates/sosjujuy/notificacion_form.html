@@ -16,30 +16,112 @@
                     <div class="col-md-12">
                         <div class="col-md-12" align="right">
                             <div class="x_panel border-aero">
-                                
                                 {% csrf_token %}
+                                <!--  Observacion, Archivo  -->
                                 <div class="row">
-                                {% for field in form %}
-                                    <div class="col-md-2" align="left" style="margin-top:8px">
-                                        {% if forloop.counter == 7 or forloop.counter == 8  %}
-                                            
-                                        {% else %}
-                                            {{ form.field }}
-                                            {{ field.label_tag }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-4" style="margin-bottom: 5px">
-                                        {{ field }}
-                                        <a style="color:red">{{ field.errors }} </a>
-                                    </div>
-                                    {% if forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 6  %}
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Observaciones:</strong>
                                         </div>
-                                        <div class="row" style="margin-top: 2rem">
-                                    {% endif %}
-                                    {% if forloop.counter == 8  %}
-                                        <div class="col-md-6" style="text-align: center;margin-top: 1rem" id="prestador_campos">
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form2.observacion }}
+                                            <a style="color:red">
+                                                {{ form2.observacion.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Archivo:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form2.archivo }}
+                                            <a style="color:red">
+                                                {{ form2.archivo.errors }} 
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--  Escala, Escala2  -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Escala1:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form.escala }}
+                                            <a style="color:red">
+                                                {{ form.escala.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Escala2:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form.escalaDos }}
+                                            <a style="color:red">
+                                                {{ form.escalaDos.errors }} 
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <div class="col-md-4"></div>
+                                <!--  Asunto,   -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Asunto:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form.asunto }}
+                                            <a style="color:red">
+                                                {{ form.asunto.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        &nbsp;
+                                    </div>
+                                </div>
+
+                                <!--  Prestador, Beneficiario  -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Prestador:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form.prestador }}
+                                            <a style="color:red">
+                                                {{ form.prestador.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <strong>Beneficiario:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            {{ form.beneficiario }}
+                                            <a style="color:red">
+                                                {{ form.beneficiario.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                </div>
+
+                                <!--  Prestador, Beneficiario  -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4"></div>
                                             <div class="col-md-8" style="margin-top: 1rem">
                                                 <div class="col-md-4">
                                                     <label for="id_escala">Nombre:</label>
@@ -78,43 +160,39 @@
                                                     <input type="text" name="matriculaPrestador" id="matricula_prestador">
                                                 </div>
                                             </div>
-                                            
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8" style="margin-top: 1rem">
+                                            <div class="col-md-4">
+                                                <label for="id_escala">Nombre:</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="nombreBeneficiario" id="nombre_beneficiario">
+                                            </div>
                                         </div>
-                                        <div class="col-md-6" style="text-align: center;" id="beneficiarios_campos">
 
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-8" style="margin-top: 1rem">
-                                                <div class="col-md-4">
-                                                    <label for="id_escala">Nombre:</label>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" name="nombreBeneficiario" id="nombre_beneficiario">
-                                                </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8" style="margin-top: 1rem">
+                                            <div class="col-md-4">
+                                                <label for="id_escala">Apellido:</label>
                                             </div>
-
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-8" style="margin-top: 1rem">
-                                                <div class="col-md-4">
-                                                    <label for="id_escala">Apellido:</label>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" name="apellidoBeneficiario" id="apellido_beneficiario">
-                                                </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="apellidoBeneficiario" id="apellido_beneficiario">
                                             </div>
+                                        </div>
 
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-8" style="margin-top: 1rem">
-                                                <div class="col-md-4">
-                                                    <label for="id_escala">Documento:</label>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" name="documentoBeneficiario" id="documento_beneficiario">
-                                                </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-8" style="margin-top: 1rem">
+                                            <div class="col-md-4">
+                                                <label for="id_escala">Documento:</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="documentoBeneficiario" id="documento_beneficiario">
                                             </div>
                                         </div>
                                     </div>
-                                    {% endif %}
-                                {% endfor %}
+                                </div>                                
                             </div>
                         </div>
                     </div>

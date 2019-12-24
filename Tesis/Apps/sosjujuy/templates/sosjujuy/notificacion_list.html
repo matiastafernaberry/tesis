@@ -51,6 +51,7 @@
                             <td align="center" class="col-md-4"><h2>{{ notificacion.estado }}</h2></td>
                             <td align="center" class="col-md-4"><h2>{{ notificacion.fecha|date:"d-m-Y" }}</h2></td>
                             <td align="center" class="col-md-1">
+                                <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.id %}">Ver</a>
                                 <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.id %}">Editar</a>
                             </td>
                         </tr>

@@ -133,12 +133,16 @@ class Notificacion(models.Model):
     escala = models.CharField(max_length=300)
     escalaDos = models.CharField(max_length=300)
     asunto = models.CharField(max_length=300)
-    estado = models.CharField(max_length=300)
-    observacion = models.CharField(max_length=500, default='')
     fecha = models.DateTimeField(auto_now_add=True)
-    archivo = models.FileField(max_length=254, null=True, blank=True)
     prestador = models.ForeignKey(Prestador, on_delete=models.SET_NULL, blank=True, null=True)
     beneficiario = models.ForeignKey(Beneficiario, on_delete=models.SET_NULL, blank=True, null=True)
+
+
+class NotificacionEstado(models.Model):
+    notificacion = models.ForeignKey(Notificacion, on_delete=models.SET_NULL, blank=True, null=True)
+    estado = models.CharField(max_length=300)
+    observacion = models.CharField(max_length=500)
+    archivo = models.FileField(max_length=254, null=True, blank=True)
 
 
 class ActividadExtension(models.Model):
