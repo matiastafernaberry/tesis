@@ -142,6 +142,15 @@ class NotificacionesListView(ListView):
     context_object_name = 'notificacion'
 
 
+def enviaremailNotificacion(notificacion):
+    send_mail(
+        'Notificacion SOSJujuy',
+        mail_body_notificacion(notificacion),
+        'sos.jujuy.2020@gmail.com',
+        ["sos.jujuy.2020@gmail.com"], #[derivacion.beneficiario.email],
+        fail_silently=False,
+    )
+
 class NotificacionCreateView(CreateView):
     model = Notificacion
     second_model = NotificacionEstado
@@ -163,28 +172,38 @@ class NotificacionCreateView(CreateView):
         form = self.form_class(request.POST)
         form2 = self.second_form_class(request.POST, request.FILES)
         if form.is_valid() and form2.is_valid():
-            notificacion = form.save(commit=False)
-            form2.notificacion = notificacion.id
-            form2.estado = "Iniciado"
-            form.save()
+            notificacion = form.save()
+            notificacion_estado = form2.save()
+            notificacion_estado.notificacion = notificacion
+            notificacion_estado.estado = "Iniciado"
+            notificacion_estado = form2.save()
+            enviaremailNotificacion(notificacion)
+            notificacion_estado.estado = "Enviado"
             form2.save()
+
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return self.render_to_response(self.get_context_data(form=form))
+            return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 
 class NotificacionUpdateView(UpdateView):
     model = Notificacion
+    second_model = NotificacionEstado
     template_name = 'sosjujuy/notificacion_form.html'
     form_class = NotificacionForm
+    second_form_class = NotificacionEstadoForm
     success_url = reverse_lazy('notificacion_changelist')
 
     def get_context_data(self, **kwargs):
         context = super(NotificacionUpdateView, self).get_context_data(**kwargs)
         pk = self.kwargs.get('pk', 0)
-        beneficiario = self.model.objects.get(id=pk)
+        notificacion = self.model.objects.get(id=pk)
+        print(notificacion.id)
+        notificacion_estado = self.second_model.objects.get(notificacion=notificacion.id)
         if 'form' not in context:
             context['form'] = self.form_class()
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(instance=notificacion_estado)
         context['id'] = pk
         return context
 
@@ -341,6 +360,14 @@ def mail_body(derivacion):
              "\nSOSJujuy"
     return cadena.format(derivacion.beneficiario, derivacion.prestacion.rubro, derivacion.prestacion.prestador,
                          derivacion.fecha_hora.strftime('%d-%m-%Y a las %H:%M'), derivacion.beneficiario.id, derivacion.id)
+
+
+def mail_body_notificacion(notificacion):
+    cadena = "Hola {0}, " \
+             "\nDesde SOSJujuy queremos saber cómo te fue con tu atención de {1}" \
+             "\nSaludos," \
+             "\nSOSJujuy"
+    return cadena.format(notificacion.prestador, notificacion.asunto)    
 
 
 class DerivacionUpdateView(UpdateView):
