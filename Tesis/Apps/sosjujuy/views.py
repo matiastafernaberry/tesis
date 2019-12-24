@@ -138,8 +138,9 @@ def deleteBeneficiario(request, beneficiario_id):
 
 ### Notificaciones
 class NotificacionesListView(ListView):
-    model = Notificacion
+    model = NotificacionEstado
     context_object_name = 'notificacion'
+    template_name = 'sosjujuy/notificacion_list.html'
 
 
 def enviaremailNotificacion(notificacion):
