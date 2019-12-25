@@ -4264,3 +4264,15 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
     float: left;
     padding-right: 1rem;
 }
+
+.info{
+  color: blue !important;
+  font-size: 1.7rem;
+}
+
+.notificaciones_titulo{
+    width: 100%;
+    margin-top: 3rem;
+    border-top: 1px solid #eee;
+    
+}

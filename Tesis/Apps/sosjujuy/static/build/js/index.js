@@ -48,8 +48,8 @@ $( document ).ready(function() {
 	});	
 
 	$("#notificacionForm").submit(function( event ) {
-		$('#id_estado').prop("disabled", false);
-		$('#id_estado option[value="Iniciado"]').attr('selected','selected');
+		//$('#id_estado').prop("disabled", false);
+		//$('#id_estado option[value="Iniciado"]').attr('selected','selected');
 
     	var textPrestador = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
 	  	var prestadorList = JSON.parse(localStorage.getItem('prestador'));	  	
@@ -119,7 +119,7 @@ $( document ).ready(function() {
 	// si existe el formulario hace el pedido ajax
 	var notificacionForm = document.getElementById('notificacionForm');
 	if (notificacionForm != null){
-		$('#id_estado').prop('disabled', 'disabled');
+		//$('#id_estado').prop('disabled', 'disabled');
 
 		$.ajax({
 		    type:"POST", 

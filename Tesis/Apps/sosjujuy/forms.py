@@ -176,6 +176,34 @@ class NotificacionEstadoForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
+class NotificacionEstadoUpdateForm(forms.ModelForm):
+    class Meta:
+        dateTimeOptions = {
+            'format': 'dd/mm/yyyy',
+            'autoclose': True
+        }
+        model = NotificacionEstado
+        fields = (
+                  'estado',
+                  'observacion',
+                  'archivo')
+
+        labels = {
+                  'estado': 'Estado ',
+                  'observacion': 'Observaciones',
+                  'archivo': 'Adjuntar',
+                  }
+
+        widgets = {
+                   'estado': forms.Select(choices=ESTADO),
+                   'archivos': forms.ClearableFileInput(attrs={'multiple': True}),
+                   'observacion': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+                  }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 class PrestadorForm(forms.ModelForm):
     class Meta:
         model = Prestador

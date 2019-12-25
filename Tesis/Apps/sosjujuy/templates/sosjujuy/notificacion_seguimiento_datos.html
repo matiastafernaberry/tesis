@@ -1,0 +1,156 @@
+ <!--  Observacion, Archivo  -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-4" style="text-align: left;">
+                <strong>N° Notificación:</strong>
+            </div>
+            <div class="col-md-8 info" style="text-align: left;">
+                {{ datos.id }}
+            </div>
+            <div class="clearfix">&nbsp;</div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-4" style="text-align: left;">
+                <strong>Aasunto:</strong>
+            </div>
+            <div class="col-md-8 info" style="text-align: left;">
+                {{ datos.asunto }}
+            </div>
+        </div>
+    </div>
+    
+    <!--  Escala, Escala2  -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-4" style="text-align: left;">
+                <strong>Escala1:</strong>
+            </div>
+            <div class="col-md-8 info" style="text-align: left;">
+                {{ datos.escala }}
+            </div>
+            <div class="clearfix">&nbsp;</div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-4" style="text-align: left;">
+                <strong>Escala2:</strong>
+            </div>
+            <div class="col-md-8 info" style="text-align: left;">
+                {{ datos.escalaDos }}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div style="text-align: center;"><h2>Observaciones</h2></div>
+    <div style="padding: 1rem; height: 300px;overflow-y: scroll;" >
+        
+        {% for field in observaciones %}
+            <div class="row">
+                <div class="col-md-12" align="left" style="">
+                    <hr>
+                    <p>{{ field.notificacion.fecha }}:  {{ field.observacion }}</p>
+                    <p>Estado: {{ field.estado }}</p>
+                    <hr>
+                </div>
+
+            </div>
+
+        {% endfor %}
+    </div>
+    <hr>
+    <!--  Prestador, Beneficiario  -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-6" style="text-align: center;">
+                <hr>
+                <h2>Prestador</h2>
+                <hr>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-6" style="text-align: center;">
+                <hr>
+                <h2>Beneficiario:</h2>
+                <hr>
+            </div>
+            
+            <div class="clearfix">&nbsp;</div>
+        </div>
+    </div>
+
+    <!--  Prestador, Beneficiario  -->
+    <div class="row">
+        <div class="col-md-6">
+            
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4" >
+                    <label for="id_escala">Nombre:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.prestador.nombre}}
+                </div>
+            </div>
+
+            <div class="col-md-1"></div>
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4">
+                    <label for="id_escala">Apellido:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.prestador.apellido}}
+                </div>
+            </div>
+
+            <div class="col-md-1"></div>
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4">
+                    <label for="id_escala">Documento:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.prestador.documento}}
+                </div>
+            </div>
+
+            <div class="col-md-4"></div>
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4">
+                    <label for="id_escala">Matricula:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.prestador.matricula}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4">
+                    <label for="id_escala">Nombre:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.beneficiario.nombre}}
+                </div>
+            </div>
+
+            
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4">
+                    <label for="id_escala">Apellido:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.beneficiario.apellido}}
+                </div>
+            </div>
+
+            
+            <div class="col-md-8" style="margin-top: 1rem">
+                <div class="col-md-4" >
+                    <label for="id_escala">Documento:</label>
+                </div>
+                <div class="col-md-4" style="text-align: left;">
+                    {{datos.beneficiario.documento}}
+                </div>
+            </div>
+        </div>
+    </div>                                

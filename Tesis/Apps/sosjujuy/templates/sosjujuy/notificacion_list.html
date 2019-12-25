@@ -44,7 +44,7 @@
                 {% if object_list %}
                     {% for notificacion in object_list %}
                         <tr>
-                            <td align="center" class="col-md-1"><h2>{{ notificacion.id }}</h2></td>
+                            <td align="center" class="col-md-1"><h2>{{ notificacion.notificacion.id }}</h2></td>
                             <td align="center" class="col-md-1"><h2>{{ notificacion.notificacion.escala }}</h2></td>
                             <td align="center" class="col-md-2"><h2>{{ notificacion.notificacion.escalaDos }}</h2></td>
                             <td align="center" class="col-md-3"><h2>{{ notificacion.notificacion.asunto }}</h2></td>
@@ -52,7 +52,7 @@
                             <td align="center" class="col-md-2"><h2>{{ notificacion.notificacion.fecha|date:"d-m-Y" }}</h2></td>
                             <td align="center" class="col-md-2">
                                 <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.id %}">Ver</a>
-                                <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.id %}">Editar</a>
+                                <a class="btn btn-success" href="{% url 'notificacion_change' notificacion.notificacion.id %}">Editar</a>
                             </td>
                         </tr>
                     {% endfor %}

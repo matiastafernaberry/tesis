@@ -6,7 +6,8 @@ from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, 
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import DomicilioForm, BeneficiarioForm, DerivacionForm, PrestadorForm, PrestacionForm, \
-    ActividadExtensionForm, EncuestaAtencionBeneficiarioForm, NotificacionForm, NotificacionEstadoForm
+    ActividadExtensionForm, EncuestaAtencionBeneficiarioForm, NotificacionForm, NotificacionEstadoForm, \
+    NotificacionEstadoUpdateForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from easy_pdf.views import PDFTemplateView
@@ -190,30 +191,33 @@ class NotificacionCreateView(CreateView):
 class NotificacionUpdateView(UpdateView):
     model = Notificacion
     second_model = NotificacionEstado
-    template_name = 'sosjujuy/notificacion_form.html'
-    form_class = NotificacionForm
-    second_form_class = NotificacionEstadoForm
+    template_name = 'sosjujuy/notificacion_update.html'
+    form_class = NotificacionEstadoUpdateForm
+    second_form_class = NotificacionForm
     success_url = reverse_lazy('notificacion_changelist')
 
     def get_context_data(self, **kwargs):
         context = super(NotificacionUpdateView, self).get_context_data(**kwargs)
         pk = self.kwargs.get('pk', 0)
         notificacion = self.model.objects.get(id=pk)
-        print(notificacion.id)
-        notificacion_estado = self.second_model.objects.get(notificacion=notificacion.id)
+        notificacion_estado = self.second_model.objects.filter(notificacion=notificacion.id).order_by("-id")
         if 'form' not in context:
             context['form'] = self.form_class()
         if 'form2' not in context:
-            context['form2'] = self.second_form_class(instance=notificacion_estado)
+            context['form2'] = self.second_form_class(instance=notificacion)
         context['id'] = pk
+        context['datos'] = notificacion
+        context['observaciones'] = notificacion_estado
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         id_notificacion = kwargs['pk']
-        notificacion = self.model.objects.get(id=id_notificacion)
-        form = self.form_class(request.POST, request.FILES, instance=notificacion)
+        notificacion_instance = self.model.objects.get(id=id_notificacion)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
+            notificacion = form.save()
+            notificacion.notificacion = notificacion_instance
             form.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
