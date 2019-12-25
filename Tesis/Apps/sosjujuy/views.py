@@ -218,6 +218,7 @@ class NotificacionUpdateView(UpdateView):
         if form.is_valid():
             notificacion = form.save()
             notificacion.notificacion = notificacion_instance
+            notificacion.user = request.user
             form.save()
             return HttpResponseRedirect(self.get_success_url())
         else:

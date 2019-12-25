@@ -48,8 +48,9 @@
             <div class="row">
                 <div class="col-md-12" align="left" style="">
                     <hr>
+                    <p>Usuario: <span style="color: green">{{ field.user|title }} {{ field.user.last_name }}</span></p>
                     <p>{{ field.notificacion.fecha }}:  {{ field.observacion }}</p>
-                    <p>Estado: {{ field.estado }}</p>
+                    <p>Estado: <span style="color: red">{{ field.estado }}</span></p>
                     <hr>
                 </div>
 
@@ -88,7 +89,7 @@
                     <label for="id_escala">Nombre:</label>
                 </div>
                 <div class="col-md-4" style="text-align: left;">
-                    {{datos.prestador.nombre}}
+                    {{datos.prestador.nombre|title}}
                 </div>
             </div>
 
@@ -98,7 +99,7 @@
                     <label for="id_escala">Apellido:</label>
                 </div>
                 <div class="col-md-4" style="text-align: left;">
-                    {{datos.prestador.apellido}}
+                    {{datos.prestador.apellido|title}}
                 </div>
             </div>
 
@@ -129,7 +130,7 @@
                     <label for="id_escala">Nombre:</label>
                 </div>
                 <div class="col-md-4" style="text-align: left;">
-                    {{datos.beneficiario.nombre}}
+                    {{datos.beneficiario.nombre|title}}
                 </div>
             </div>
 
@@ -139,7 +140,7 @@
                     <label for="id_escala">Apellido:</label>
                 </div>
                 <div class="col-md-4" style="text-align: left;">
-                    {{datos.beneficiario.apellido}}
+                    {{datos.beneficiario.apellido|title}}
                 </div>
             </div>
 

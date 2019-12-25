@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 NA, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO = range(-1, 7)
@@ -147,7 +148,8 @@ class NotificacionEstado(models.Model):
     estado = models.CharField(max_length=300)
     observacion = models.CharField(max_length=500)
     archivo = models.FileField(max_length=254, null=True, blank=True)
-    
+    user = models.ForeignKey(User, models.SET_NULL, blank=True,null=True)
+
     def __str__(self):
         cadena = "{0}, {1}"
         return cadena.format(self.estado, self.observacion)
