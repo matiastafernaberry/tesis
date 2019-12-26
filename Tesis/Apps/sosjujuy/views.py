@@ -228,7 +228,7 @@ class NotificacionUpdateView(UpdateView):
             form.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return self.render_to_response(self.get_context_data(form=form, form2=form2))
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 ### Fin Notificaiones
