@@ -144,10 +144,24 @@ class NotificacionesListView(ListView):
     template_name = 'sosjujuy/notificacion_list.html'
 
 
+
 class ReporteNotificacion(ListView):
     model = NotificacionEstado
     context_object_name = 'notificacion'
     template_name = 'sosjujuy/reporte_notificacion.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ReporteNotificacion, self).get_context_data(**kwargs)
+        iniciado = self.model.objects.filter(estado="Iniciado").count()
+        enviado = self.model.objects.filter(estado="Enviado").count()
+        pendiente = self.model.objects.filter(estado="Pendiente").count()
+        anulado = self.model.objects.filter(estado="Anulado").count()
+        aprobado = self.model.objects.filter(estado="Aprobado").count()
+        rechazado = self.model.objects.filter(estado="Rechazado").count()
+        
+        context['datos'] = [iniciado,enviado,pendiente,anulado,aprobado,rechazado]
+        
+        return context
 
 
 def enviaremailNotificacion(notificacion):
