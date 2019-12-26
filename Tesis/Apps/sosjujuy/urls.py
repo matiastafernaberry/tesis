@@ -30,6 +30,7 @@ urlpatterns = [
     # notificaciones
     path('notificaciones/', login_required(views.NotificacionesListView.as_view()), name='notificacion_changelist'),
     path('notificacion/', login_required(views.NotificacionCreateView.as_view()), name='notificacion_add'),
+    path('reporte/notificacion/', login_required(views.ReporteNotificacion.as_view()), name='reporte_notificacion'),
     path('notificacion/<int:pk>/', login_required(views.NotificacionUpdateView.as_view()), name='notificacion_change'),
     # fin notificaciones
     path('prestadores/', login_required(views.PrestadorListView.as_view()), name='prestador_changelist'),

@@ -144,6 +144,12 @@ class NotificacionesListView(ListView):
     template_name = 'sosjujuy/notificacion_list.html'
 
 
+class ReporteNotificacion(ListView):
+    model = NotificacionEstado
+    context_object_name = 'notificacion'
+    template_name = 'sosjujuy/reporte_notificacion.html'
+
+
 def enviaremailNotificacion(notificacion):
     send_mail(
         'Notificacion SOSJujuy',
