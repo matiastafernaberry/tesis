@@ -148,7 +148,7 @@ class NotificacionesListView(ListView):
 class ReporteNotificacion(ListView):
     model = NotificacionEstado
     context_object_name = 'notificacion'
-    template_name = 'sosjujuy/reporte_notificacion.html'
+    template_name = 'sosjujuy/notificacion_reporte.html'
 
     def get_context_data(self, **kwargs):
         context = super(ReporteNotificacion, self).get_context_data(**kwargs)

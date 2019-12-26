@@ -50,6 +50,7 @@ $( document ).ready(function() {
 	$("#notificacionForm").submit(function( event ) {
 		//$('#id_estado').prop("disabled", false);
 		//$('#id_estado option[value="Iniciado"]').attr('selected','selected');
+		$('#id_escalaDos').attr("disabled", false);
 
     	var textPrestador = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
 	  	var prestadorList = JSON.parse(localStorage.getItem('prestador'));	  	
@@ -407,24 +408,31 @@ function loadBeneficiarioNotificacion(datos){
     				return false;
     			} 
     		}
-    		
-    		var paisesList = JSON.parse(localStorage.getItem('beneficiario2'));
-    		textBeneficiario = $("a[class=chosen-single]")[1].text.replace(/\s/g, '');
+    		try{
+    			var paisesList = JSON.parse(localStorage.getItem('beneficiario2'));
+    			textBeneficiario = $("a[class=chosen-single]")[1].text.replace(/\s/g, '');
+    		} catch(error) {
+    			console.log(error);
+    		};
 			//console.log(paisesList[textBeneficiario]);
-			$.ajax({
-			    type:"POST", 
-			    url:"/beneficiario/get/", 
-			    data:{value:paisesList[textBeneficiario], "csrfmiddlewaretoken": tok},
-			    success:function(datos){ 
-			    	//$(".id_provincia").next().remove();
-			    	$("#nombre_beneficiario").val(datos[0]["fields"]["nombre"]);
-			    	$("#apellido_beneficiario").val(datos[0]["fields"]["apellido"]);
-			    	$("#documento_beneficiario").val(datos[0]["fields"]["documento"]);
-			    	//console.log(datos[0]["fields"]["apellido"]);
-			    },
-			}).fail( function( jqXHR, textStatus, errorThrown ) {
-			    console.log(errorThrown);
-			});
+			try{
+				$.ajax({
+				    type:"POST", 
+				    url:"/beneficiario/get/", 
+				    data:{value:paisesList[textBeneficiario], "csrfmiddlewaretoken": tok},
+				    success:function(datos){ 
+				    	//$(".id_provincia").next().remove();
+				    	$("#nombre_beneficiario").val(datos[0]["fields"]["nombre"]);
+				    	$("#apellido_beneficiario").val(datos[0]["fields"]["apellido"]);
+				    	$("#documento_beneficiario").val(datos[0]["fields"]["documento"]);
+				    	//console.log(datos[0]["fields"]["apellido"]);
+				    },
+				}).fail( function( jqXHR, textStatus, errorThrown ) {
+				    console.log(errorThrown);
+				});
+			} catch(error) {
+    			console.log(error);
+    		};
 		});
 
 	} catch(error) {
@@ -432,43 +440,3 @@ function loadBeneficiarioNotificacion(datos){
   	}   	    
 };
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var datos = $('#datos').val();
-datos = JSON.parse(datos);
-console.log(datos);
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-      labels: ['Iniciado', 'Enviado', 'Pendiente', 'Anulado', 'Aprobado', 'Rechazado'],
-      datasets: [{
-          label: '',
-          data: datos,
-          backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 2
-      }]
-  },
-  options: {
-      scales: {
-          yAxes: [{
-              ticks: {
-                  beginAtZero: true
-              }
-          }]
-      }
-  }
-});
