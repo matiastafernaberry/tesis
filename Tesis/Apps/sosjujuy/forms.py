@@ -91,8 +91,7 @@ class BeneficiarioForm(forms.ModelForm):
 
 ESCALA=[
   ('','----------'),
-  ('Auditoria','Auditoria'),
-  ('Solicitud','Solicitud'),
+  #('Auditoria','Auditoria'),
   ('Actividades de Extension','Actividades de Extension'),
   ('Beneficiarios', 'Beneficiarios'),
   ('Atencion y Derivacion', 'Atencion y Derivacion')
@@ -101,6 +100,7 @@ ESCALA=[
 ESCALADOS=[
   ('','----------'),
   ('Reporte','Reporte'),
+  ('Solicitud', 'Solicitud'),
   ('Solicitud de Audiencia', 'Solicitud de Audiencia'),
   ('Pedido Extraordinario', 'Pedido Extraordinario')
   ]

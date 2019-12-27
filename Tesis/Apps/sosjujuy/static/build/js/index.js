@@ -50,6 +50,8 @@ $( document ).ready(function() {
 	$("#notificacionForm").submit(function( event ) {
 		//$('#id_estado').prop("disabled", false);
 		//$('#id_estado option[value="Iniciado"]').attr('selected','selected');
+		console.log($(this));
+		alert(this);
 		$('#id_escalaDos').attr("disabled", false);
 
     	var textPrestador = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
@@ -296,7 +298,7 @@ function loadPrestador(datos){
 
 	try{	
     	var paisSelect = $("#id_prestador");
-    	$(document).on('change', paisSelect, function() {
+    	$(document).on('change', "#id_prestador", function() {
     		try{
     			var paisText = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
     			//alert(paisText);
@@ -311,9 +313,12 @@ function loadPrestador(datos){
     				return false;
     			} 
     		}
-    		
-    		var paisesList = JSON.parse(localStorage.getItem('prestador'));
-			console.log(paisesList[paisText]);
+    		try{
+	    		var paisesList = JSON.parse(localStorage.getItem('prestador'));
+				console.log(paisesList[paisText]);
+			} catch(error) {
+	  			console.log(error);
+	  		};
 			$.ajax({
 			    type:"POST", 
 			    url:"/prestador/get/", 
@@ -393,7 +398,7 @@ function loadBeneficiarioNotificacion(datos){
 
 	try{	
     	var paisSelect = $("#id_beneficiario");
-    	$(document).on('change', paisSelect, function() {
+    	$(document).on('change', "#id_beneficiario", function() {
     		try{
     			var paisText = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
     			//alert(paisText);
@@ -434,9 +439,8 @@ function loadBeneficiarioNotificacion(datos){
     			console.log(error);
     		};
 		});
-
 	} catch(error) {
-  		//console.error(error);
+  		console.error(error);
   	}   	    
 };
 

@@ -4,21 +4,50 @@ $( document ).ready(function() {
 	if (formNotificacion != null){
 		//id_escala
 		localStorage.removeItem("goTo");
-
-		$('#id_escalaDos').attr("disabled", false);
-		$(document).on('change', $("#id_escala"), function() {
+		
+		$(document).on('change', "#id_escala", function() {
+			$('#id_escalaDos').attr("disabled", false);
 			valSelected = $("#id_escala option:selected").val();
+			console.log("as");
 			if (valSelected == "Actividades de Extension"){
-				$('#id_escalaDos option[value="Reporte"]');
-				$('#id_escalaDos').attr("disabled", true);
+				$('#id_escalaDos')
+				    .find('option')
+				    .remove()
+				    .end()
+				    .append('<option value="" selected=selected>----------</option>')
+				    .val('')
+				    .append('<option value="Reporte">Reporte</option>')
+				    .val('Reporte')
+				    .append('<option value="Solicitud">Solicitud</option>')
+				    .val('Solicitud')
+				;
+				$('#id_escalaDos option[value=""]').prop('selected', true);
 			}
 			if (valSelected == "Beneficiarios"){
-				$('#id_escalaDos option[value="Reporte"]');
-				$('#id_escalaDos').attr("disabled", true);
+				$('#id_escalaDos')
+				    .find('option')
+				    .remove()
+				    .end()
+				    .append('<option value="" selected=selected>----------</option>')
+				    .val('')
+				    .append('<option value="Pedido Extraordinario">Pedido Extraordinario</option>')
+				    .val('Pedido Extraordinario')
+				    .append('<option value="Solicitud de Audiencia">Solicitud de Audiencia</option>')
+				    .val('Solicitud de Audiencia')
+				;
+				$('#id_escalaDos option[value=""]').prop('selected', true);
 			}
 			if (valSelected == "Atencion y Derivacion"){
-				$('#id_escalaDos option[value="Reporte"]');
-				$('#id_escalaDos').attr("disabled", true);
+				$('#id_escalaDos')
+				    .find('option')
+				    .remove()
+				    .end()
+				    .append('<option value="" selected=selected>----------</option>')
+				    .val('')
+				    .append('<option value="Reporte">Reporte</option>')
+				    .val('Reporte')
+				;
+				$('#id_escalaDos option[value=""]').prop('selected', true);
 			}
 			//console.log(valSelected);
 		});
@@ -39,3 +68,16 @@ $( document ).ready(function() {
 	};
 
 });
+
+
+
+function alerta() {
+    var mensaje;
+    var opcion = confirm("¿Esta seguro que quiere guardar?");
+    if (opcion == true) {
+        mensaje = "Has clickado OK";
+	} else {
+	    mensaje = "Has clickado Cancelar";
+	}
+	document.getElementById("ejemplo").innerHTML = mensaje;
+}
