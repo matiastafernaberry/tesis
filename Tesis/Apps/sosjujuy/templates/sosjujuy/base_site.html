@@ -50,9 +50,11 @@
 
       <script type="text/javascript">
         var pagina = window.location.pathname;
+        var goTo = JSON.parse(localStorage.getItem('goTo'));
+        // 
+        
         if (pagina == "/prestadores/" || pagina == "/beneficiarios/" ){
           //window.location.replace("/notificaciones/");
-          var goTo = JSON.parse(localStorage.getItem('goTo'));
           if (goTo["goTo"] == "/notificacion/"){
             window.location.replace("/notificacion/");
           } 
@@ -130,6 +132,17 @@
       <script src="/static/build/js/custom.js"></script>
       <script src="/static/build/js/index.js"></script>
       <script src="/static/build/js/estados.js"></script>
+      <script type="text/javascript">
+        var pagina = window.location.pathname;
+        var goTo = JSON.parse(localStorage.getItem('goTo'));
+        // 
+        if (pagina == "/prestador/" && (goTo["goTo"] == "/notificacion/")){
+          $(".page-title").find("h3").empty().append("Registrar Notificaciones > Registrar Prestador");
+        };
+        if (pagina == "/beneficiario/" && (goTo["goTo"] == "/notificacion/")){
+          $(".page-title").find("h3").empty().append("Registrar Notificaciones > Registrar Beneficiario");
+        };
+      </script>
     {% endblock body %}
   </body>
 </html>
