@@ -2,12 +2,12 @@
 
 {% block content %}
     <div class="right_col" role="main">
-
         <form method="post" id="notificacionForm" novalidate  enctype="multipart/form-data">
             <div class="">
                 <div class="page-title">
                     <div class="col-md-4">
                         <h3>Registrar Notificación</h3>
+                        <input type="hidden" name="usuario" value="user" id="usuario">
                     </div>
                 </div>
                 </br>
@@ -21,12 +21,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="col-md-4" style="text-align: left;">
-                                            <strong>Observaciones:</strong>
+                                            <strong>Asunto:</strong>
                                         </div>
                                         <div class="col-md-8" style="text-align: left;">
-                                            {{ form2.observacion }}
+                                            {{ form.asunto }}
                                             <a style="color:red">
-                                                {{ form2.observacion.errors }} 
+                                                {{ form.asunto.errors }} 
                                             </a>
                                         </div>
                                         <div class="clearfix">&nbsp;</div>
@@ -75,16 +75,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="col-md-4" style="text-align: left;">
-                                            <strong>Asunto:</strong>
+                                            <strong>Observaciones:</strong>
                                         </div>
                                         <div class="col-md-8" style="text-align: left;">
-                                            {{ form.asunto }}
+                                            {{ form2.observacion }}
                                             <a style="color:red">
-                                                {{ form.asunto.errors }} 
+                                                {{ form2.observacion.errors }} 
                                             </a>
                                         </div>
                                         <div class="clearfix">&nbsp;</div>
                                     </div>
+                                    
                                     <div class="col-md-6">
                                         &nbsp;
                                     </div>

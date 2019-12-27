@@ -47,6 +47,17 @@
       {% endblock stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
+
+      <script type="text/javascript">
+        var pagina = window.location.pathname;
+        if (pagina == "/prestadores/" || pagina == "/beneficiarios/" ){
+          //window.location.replace("/notificaciones/");
+          var goTo = JSON.parse(localStorage.getItem('goTo'));
+          if (goTo["goTo"] == "/notificacion/"){
+            window.location.replace("/notificacion/");
+          } 
+        }
+      </script>
     {% endblock head %}
   </head>
 

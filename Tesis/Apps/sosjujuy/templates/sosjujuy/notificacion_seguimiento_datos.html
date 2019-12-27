@@ -49,12 +49,12 @@
                 <div class="col-md-12" align="left" style="">
                     <hr>
                     <p>Usuario: <span style="color: green">{{ field.user|title }} {{ field.user.last_name }}</span></p>
-                    <p>{{ field.notificacion.fecha }}:  {{ field.observacion }}</p>
+                    <p>{{ field.notificacion.fecha }}</p>
+                    <p>Observaciones: {{ field.observacion }}</p>
                     <p>Estado: <span style="color: red">{{ field.estado }}</span></p>
                     <p>Adjunto: <a href="/media/{{ field.archivo }}">{{ field.archivo }}</a></p>
                     <hr>
                 </div>
-
             </div>
         {% endfor %}
     </div>

@@ -277,7 +277,7 @@ function loadPrestador(datos){
 
 		$("#id_prestador").parent().append(
 			`<a href="/prestador/" title="Agregar Prestador" style="float:right">
-	          <span class="glyphicon glyphicon-plus"></span>
+	          <span class="glyphicon glyphicon-plus" id="icon_prestador"></span>
 	        </a>`);
 
 		var prestador = {};
@@ -374,7 +374,7 @@ function loadBeneficiarioNotificacion(datos){
             <option value=""></option>`);
 		$("#id_beneficiario").parent().append(
 			`<a href="/beneficiario/" title="Agregar Beneficiario" style="float:right">
-	          <span class="glyphicon glyphicon-plus"></span>
+	          <span class="glyphicon glyphicon-plus" id="icon_beneficiario"></span>
 	        </a>`);
 
 		var beneficiario = {};

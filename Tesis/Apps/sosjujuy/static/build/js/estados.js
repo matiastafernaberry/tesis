@@ -1,7 +1,10 @@
 $( document ).ready(function() {
-	var formBeneficiarios = document.getElementById('notificacionForm');
-	if (formBeneficiarios != null){
+	
+	var formNotificacion = document.getElementById('notificacionForm');
+	if (formNotificacion != null){
 		//id_escala
+		localStorage.removeItem("goTo");
+
 		$('#id_escalaDos').attr("disabled", false);
 		$(document).on('change', $("#id_escala"), function() {
 			valSelected = $("#id_escala option:selected").val();
@@ -19,6 +22,20 @@ $( document ).ready(function() {
 			}
 			//console.log(valSelected);
 		});
+
+		$(document).on('click', "#icon_prestador", function(e) {
+			e.preventDefault();
+			var goTo = {"goTo": "/notificacion/"};
+			localStorage.setItem('goTo', JSON.stringify(goTo));
+			window.location.replace("/prestador/");
+		});
+
+		$(document).on('click', "#icon_beneficiario", function(e) {
+			e.preventDefault();
+			var goTo = {"goTo": "/notificacion/"};
+			localStorage.setItem('goTo', JSON.stringify(goTo));
+			window.location.replace("/beneficiario/");
+		});			
 	};
 
 });

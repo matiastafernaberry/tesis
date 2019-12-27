@@ -187,6 +187,7 @@ class NotificacionCreateView(CreateView):
             context['form'] = self.form_class(self.request.GET or None)
         if 'form2' not in context:
             context['form2'] = self.second_form_class(self.request.GET or None)
+        context['user'] = self.request.user
         return context
 
     def post(self, request, *args, **kwargs):
