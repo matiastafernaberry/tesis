@@ -137,7 +137,7 @@ class Notificacion(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     prestador = models.ForeignKey(Prestador, on_delete=models.SET_NULL, blank=True, null=True)
     beneficiario = models.ForeignKey(Beneficiario, on_delete=models.SET_NULL, blank=True, null=True)
-
+    user = models.ForeignKey(User, models.SET_NULL, blank=True,null=True)
     def __str__(self):
         cadena = "{0}, {1}"
         return cadena.format(self.asunto, self.escala)
@@ -149,7 +149,7 @@ class NotificacionEstado(models.Model):
     observacion = models.CharField(max_length=500)
     archivo = models.FileField(max_length=254, null=True, blank=True)
     user = models.ForeignKey(User, models.SET_NULL, blank=True,null=True)
-
+    fecha = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         cadena = "{0}, {1}"
         return cadena.format(self.estado, self.observacion)

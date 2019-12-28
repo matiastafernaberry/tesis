@@ -195,13 +195,19 @@ class NotificacionCreateView(CreateView):
         form = self.form_class(request.POST)
         form2 = self.second_form_class(request.POST, request.FILES)
         if form.is_valid() and form2.is_valid():
-            notificacion = form.save()
-            notificacion_estado = form2.save()
+            notificacion = form.save(commit=False)
+            notificacion.user = request.user
+            form.save()
+
+            notificacion_estado = form2.save(commit=False)
             notificacion_estado.notificacion = notificacion
-            notificacion_estado.estado = "Iniciado"
-            notificacion_estado = form2.save()
-            enviaremailNotificacion(notificacion)
-            notificacion_estado.estado = "Enviado"
+            notificacion_estado.user = request.user
+            
+            if (request.POST.get('enviar', False)):
+                enviaremailNotificacion(notificacion)
+                notificacion_estado.estado = "Enviado"
+            else:
+                notificacion_estado.estado = "Iniciado"
             form2.save()
 
             return HttpResponseRedirect(self.get_success_url())
