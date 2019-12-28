@@ -46,12 +46,11 @@
         {% for field in observaciones %}
             <div class="row">
                 <div class="col-md-12" align="left" style="">
-                    <p>Usuario: <span style="color: green">{{ field.user|title }} {{ field.user.last_name }}</span></p>
-                    <p>{{ field.fecha }}</p>
+                    <p>Usuario: <span style="color: green">{{ field.user|title }} {{ field.user.last_name }}</span> | Fecha: {{ field.fecha }}</p>
                     <p>Observaciones: {{ field.observacion }}</p>
-                    <p>Estado: <span style="color: red">{{ field.estado }}</span></p>
-                    <p>Adjunto: <a href="/media/{{ field.archivo }}">{{ field.archivo }}</a></p>
-                    <hr>
+                    <p>Estado: <span style="color: red">{{ field.estado }}</span> | 
+                    Adjunto: <a href="/media/{{ field.archivo }}">{{ field.archivo }}</a></p>
+                    <div style="width: 100%;border-bottom: 1px dashed red"></div>
                 </div>
             </div>
         {% endfor %}

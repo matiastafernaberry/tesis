@@ -19,13 +19,13 @@
         <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- bootstrap-daterangepicker -->
         <script src="/static/vendors/moment/min/moment.min.js"></script>
-        <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js">
+        </script>
         <!-- bootstrap-datetimepicker -->
         <script src="/static/vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
       {% endblock headjavascripts %}
 
       <title>SosJujuy | {% block title %}{% endblock %}</title>
-
       {% block stylesheets %}
         <!-- Bootstrap -->
         <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -47,12 +47,10 @@
       {% endblock stylesheets %}
       <!-- Custom Theme Style -->
       <link href="/static/build/css/custom.css" rel="stylesheet">
-
       <script type="text/javascript">
         var pagina = window.location.pathname;
         var goTo = JSON.parse(localStorage.getItem('goTo'));
-        // 
-        
+        //
         if (pagina == "/prestadores/" || pagina == "/beneficiarios/" ){
           //window.location.replace("/notificaciones/");
           if (goTo["goTo"] == "/notificacion/"){
@@ -137,10 +135,10 @@
         var goTo = JSON.parse(localStorage.getItem('goTo'));
         // 
         if (pagina == "/prestador/" && (goTo["goTo"] == "/notificacion/")){
-          $(".page-title").find("h3").empty().append("Registrar Notificaciones > Registrar Prestador");
+          $(".page-title").find("h3").empty().append("<a href='/notificacion/'>Registrar Notificaciones ></a> Registrar Prestador");
         };
         if (pagina == "/beneficiario/" && (goTo["goTo"] == "/notificacion/")){
-          $(".page-title").find("h3").empty().append("Registrar Notificaciones > Registrar Beneficiario");
+          $(".page-title").find("h3").empty().append("<a href='/notificacion/'>Registrar Notificaciones ></a> Registrar Beneficiario");
         };
       </script>
     {% endblock body %}

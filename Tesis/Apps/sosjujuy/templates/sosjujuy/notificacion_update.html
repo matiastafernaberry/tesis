@@ -2,7 +2,6 @@
 
 {% block content %}
     <div class="right_col" role="main">
-
         <form method="post" id="notificacionForm" novalidate  enctype="multipart/form-data">
             <div class="">
                 <div class="page-title">
@@ -19,11 +18,9 @@
                                 {% csrf_token %}
                                 <!--  Observacion, Archivo  -->
                                 {% include "sosjujuy/notificacion_seguimiento_datos.html" %}
-                                
                                 <div class="notificaciones_titulo" style="text-align: center;padding: 1rem;">
                                     <h2>Agregar Observación</h2>
                                 </div>
-
                                 {% for field in form %}
                                     <div class="row">
                                         <div class="col-md-4" align="left" style="margin-top:8px">{{ form.field }}
@@ -35,13 +32,10 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
-
-                                {% endfor %}
-                                                   
+                                {% endfor %}         
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 <div class="row">
                     <div class="col-md-2"></div>
