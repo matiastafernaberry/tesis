@@ -303,7 +303,7 @@ class PrestacionCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         form = self.form_class(request.POST)
-        #form2 = self.second_form_class(request.POST)
+        form2 = self.second_form_class(request.POST)
         if form.is_valid() :
             prestacion = form.save(commit=False)
             #prestacion.domicilio = form2.save()
