@@ -115,7 +115,7 @@ class Disponibilidad_horaria(models.Model):
 class Prestacion(models.Model):
     rubro = models.CharField(max_length=300)
     dias_disponibles = models.ForeignKey(Disponibilidad_horaria, on_delete=models.SET_NULL, blank=True, null=True)
-    domicilio = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True)
+    #domicilio = models.ForeignKey(Domicilio, on_delete=models.SET_NULL, blank=True, null=True)
     porcentaje_de_cobertura = models.PositiveIntegerField()
     prestador = models.ForeignKey(Prestador, on_delete=models.SET_NULL, blank=True, null=True)
     descripcion = models.CharField(max_length=300)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var tok = $('input[name=csrfmiddlewaretoken]').attr("value");
 localStorage.removeItem("pais_provincia");
 
@@ -70,6 +71,12 @@ $( document ).ready(function() {
 		$("form").trigger("submit");
 	});	
 	// ------(-.-)------- //
+=======
+$( document ).ready(function() {
+    var tok = $('input[name=csrfmiddlewaretoken]').attr("value");
+    //console.log(tok);
+
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
     $("#beneficiarioForm").submit(function( event ) {
     	var textPais = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
     	var textProvincia = $("a[class=chosen-single]")[1].text.replace(/\s/g, '');
@@ -80,31 +87,45 @@ $( document ).ready(function() {
 	  	$("<input />").attr("type", "hidden")
           .attr("name", "pais")
           .attr("value", paisesList[textPais])
+<<<<<<< HEAD
           .attr("id", "pais")
+=======
+          .attr("id", "id_pais")
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
           .attr("data", textPais)
           .appendTo("#beneficiarioForm");
 
         $("<input />").attr("type", "hidden")
           .attr("name", "provincia")
           .attr("value", provinciaList[textProvincia])
+<<<<<<< HEAD
           .attr("id", "provincia")
+=======
+          .attr("id", "id_provincia")
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
           .attr("data", textProvincia)
           .appendTo("#beneficiarioForm");
 	});	
 
 	$("#DerivacionForm").submit(function( event ) {
+<<<<<<< HEAD
     	var textBene = $("a[class=chosen-single]")[0].text.replace(/^\s/g, '').replace(/^\s/g, '').replace(/^\s/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').split(" ")[0];
 	  	var benefiList = JSON.parse(localStorage.getItem('beneficiario'));	  	
 
 	  	var textPres = $("a[class=chosen-single]")[1].text.replace(/^\s/g, '').replace(/^\s/g, '').replace(/^\s/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').replace(/\s$/g, '').split(" ")[0];
 	  	var presfiList = JSON.parse(localStorage.getItem('prestacion'));	  	
 
+=======
+    	var textBene = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
+	  	var benefiList = JSON.parse(localStorage.getItem('beneficiario'));	  	
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
         $("<input />").attr("type", "hidden")
           .attr("name", "beneficiario")
           .attr("value", benefiList[textBene])
           .attr("id", "id_beneficiario")
           .attr("data", textBene)
           .appendTo("#DerivacionForm");
+<<<<<<< HEAD
 
         $("<input />").attr("type", "hidden")
           .attr("name", "prestacion")
@@ -114,6 +135,22 @@ $( document ).ready(function() {
           .appendTo("#DerivacionForm");
 	});	
 
+=======
+	});	
+
+	$("#notificacionForm").submit(function( event ) {
+    	var textPrestador = $("a[class=chosen-single]")[0].text.replace(/\s/g, '');
+	  	var prestadorList = JSON.parse(localStorage.getItem('prestador'));	  	
+        $("<input />").attr("type", "hidden")
+          .attr("name", "prestador")
+          .attr("value", prestadorList[textPrestador])
+          .attr("id", "id_beneficiario")
+          .attr("data", textPrestador)
+          .appendTo("#notificacionForm");
+	});	
+
+	
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 	// si existe el formulario hace el pedido ajax
 	var formBeneficiarios = document.getElementById('beneficiarioForm');
 	if (formBeneficiarios != null){
@@ -125,6 +162,7 @@ $( document ).ready(function() {
 		    	loadBeneficiario(datos);
 		    },
 		});
+<<<<<<< HEAD
 		try{
 			$.ajax({
 			    type:"POST", 
@@ -155,6 +193,26 @@ $( document ).ready(function() {
 		    data:{url:"Z562316", "csrfmiddlewaretoken": tok},
 		    success:function(datos){ 
 		    	loadPrestacion(datos);
+=======
+		$.ajax({
+		    type:"POST", 
+		    url:"/provincias/", 
+		    data:{url:"Z562316", "csrfmiddlewaretoken": tok},
+		    success:function(datos){ 
+		    	loadProvincia(datos);
+		    },
+		});
+	}
+	// si existe el formulario hace el pedido ajax
+	var formDerivacion = document.getElementById('DerivacionForm');
+	if (formDerivacion != null){
+		$.ajax({
+		    type:"POST", 
+		    url:"/beneficiariosearch/", 
+		    data:{url:"Z562316", "csrfmiddlewaretoken": tok},
+		    success:function(datos){ 
+		    	loadDerivacion(datos);
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 		    },
 		});
 	}
@@ -162,7 +220,10 @@ $( document ).ready(function() {
 	// si existe el formulario hace el pedido ajax
 	var notificacionForm = document.getElementById('notificacionForm');
 	if (notificacionForm != null){
+<<<<<<< HEAD
 		//$('#id_estado').prop('disabled', 'disabled');
+=======
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 		$.ajax({
 		    type:"POST", 
 		    url:"/prestadorsearch/", 
@@ -182,20 +243,38 @@ $( document ).ready(function() {
 	}
 });
 
+<<<<<<< HEAD
 
 function loadBeneficiario(datos){
 	var textSelect = $("#id_pais option:selected").text();
 	// en el editar esta el select comun
 	if (textSelect == "---------"){
+=======
+function loadBeneficiario(datos){
+	var textSelect = $("#id_pais option:selected").text();
+	// en el editar esta el select comun
+	if (textSelect != "---------"){
+		//
+	} else {
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 		//console.log(textSelect);
 		var valSelect = $("#id_pais option:selected").val();
 		//console.log(valSelect);
 		$("#id_pais").parent().append(
+<<<<<<< HEAD
 			`<select data-placeholder="Seleccione un País..." class="chosen-select id_pais" tabindex="2">
+=======
+			`<select data-placeholder="Elija un País..." class="chosen-select id_pais" tabindex="2">
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
             <option value=""></option>`);
 
 		var paises = {};
 		for (x in datos) {
+<<<<<<< HEAD
+=======
+    		//console.log(datos[x]["pk"]);
+
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
     		paises[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
     		$(".chosen-select").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
     	}
@@ -203,14 +282,19 @@ function loadBeneficiario(datos){
 	    localStorage.setItem('paises', JSON.stringify(paises));
 
 	    $(".id_pais").chosen({width: "100%"});
+<<<<<<< HEAD
 	    $("#id_pais").remove();
 	    $(".id_pais").next().attr("id", "id_pais") 	    
+=======
+	    $("#id_pais").remove(); 	    
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 	}
 };
 
 function loadProvincia(datos){
 	var textSelect = $("#id_provincia option:selected").text();
 	// en el editar esta el select comun
+<<<<<<< HEAD
 	if (textSelect == "---------" || $(".id_provincia").next() ) {
 		//console.log(textSelect);
 		
@@ -231,6 +315,21 @@ function loadProvincia(datos){
 		var provincias = {};
 		for (x in datos) {
     		//console.log(datos[x]["pk"]);
+=======
+	if (textSelect == "---------"){
+		//
+		//console.log(textSelect);
+		var valSelect = $("#id_provincia option:selected").val();
+		//console.log(valSelect);
+		$("#id_provincia").parent().append(
+			`<select data-placeholder="Elija una Provincia..." class="chosen-select id_provincia" tabindex="2">
+            <option value=""></option>`);
+
+		var provincias = {};
+		for (x in datos) {
+    		//console.log(datos[x]["pk"]);
+
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
     		provincias[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
     		$(".id_provincia").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
     	}
@@ -238,6 +337,7 @@ function loadProvincia(datos){
 	    localStorage.setItem('provincias', JSON.stringify(provincias));
 
 	    $(".id_provincia").chosen({width: "100%"});
+<<<<<<< HEAD
 	    $("#id_provincia").remove();
 
 	    try{
@@ -278,6 +378,9 @@ function loadProvincia(datos){
 	    } catch(error) {
   			//console.error(error);
   		}   	    
+=======
+	    $("#id_provincia").remove(); 	    
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 	}
 };
 
@@ -290,7 +393,11 @@ function loadDerivacion(datos){
 		var valSelect = $("#id_beneficiario option:selected").val();
 		//console.log(valSelect);
 		$("#id_beneficiario").parent().append(
+<<<<<<< HEAD
 			`<select data-placeholder="Seleccione un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
+=======
+			`<select data-placeholder="Elija un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
             <option value=""></option>`);
 
 		var beneficiario = {};
@@ -298,7 +405,11 @@ function loadDerivacion(datos){
     		//console.log(datos[x]["pk"]);
 
     		beneficiario[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
+<<<<<<< HEAD
     		$(".id_beneficiario").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]+" "+datos[x]["fields"]["apellido"]));
+=======
+    		$(".id_beneficiario").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
     	}
     	//console.log(typeof  paises);
 	    localStorage.setItem('beneficiario', JSON.stringify(beneficiario));
@@ -317,6 +428,7 @@ function loadPrestador(datos){
 		var valSelect = $("#id_prestador option:selected").val();
 		//console.log(valSelect);
 		$("#id_prestador").parent().append(
+<<<<<<< HEAD
 			`<select data-placeholder="Seleccione un Prestador..." class="chosen-select id_prestador" tabindex="2">
             <option value=""></option>`);
 
@@ -330,11 +442,25 @@ function loadPrestador(datos){
     		prestador[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
     		$(".id_prestador").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
     	}
+=======
+			`<select data-placeholder="Elija un Prestador..." class="chosen-select id_prestador" tabindex="2">
+            <option value=""></option>`);
+
+		var prestador = {};
+		for (x in datos) {
+    		//console.log(datos[x]["pk"]);
+
+    		prestador[datos[x]["fields"]["nombre"]] = datos[x]["pk"];
+    		$(".id_prestador").append($("<option />").val(datos[x]["fields"]["nombre"]).text(datos[x]["fields"]["nombre"]));
+    	}
+    	//console.log(typeof  paises);
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 	    localStorage.setItem('prestador', JSON.stringify(prestador));
 
 	    $(".id_prestador").chosen({width: "100%"});
 	    $("#id_prestador").remove(); 	    
 	}
+<<<<<<< HEAD
 
 	try{	
     	var paisSelect = $("#id_prestador");
@@ -412,6 +538,10 @@ function loadPrestacion(datos){
 	    $("#id_prestacion").remove(); 	    
 	}
 };
+=======
+};
+
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 
 function loadBeneficiarioNotificacion(datos){
 	var textSelect = $("#id_beneficiario option:selected").text();
@@ -422,12 +552,17 @@ function loadBeneficiarioNotificacion(datos){
 		var valSelect = $("#id_beneficiario option:selected").val();
 		//console.log(valSelect);
 		$("#id_beneficiario").parent().append(
+<<<<<<< HEAD
 			`<select data-placeholder="Seleccione un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
             <option value=""></option>`);
 		$("#id_beneficiario").parent().append(
 			`<a href="/beneficiario/" title="Agregar Beneficiario" style="float:right">
 	          <span class="glyphicon glyphicon-plus" id="icon_beneficiario"></span>
 	        </a>`);
+=======
+			`<select data-placeholder="Elija un Beneficiario..." class="chosen-select id_beneficiario" tabindex="2">
+            <option value=""></option>`);
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf
 
 		var beneficiario = {};
 		for (x in datos) {
@@ -442,6 +577,7 @@ function loadBeneficiarioNotificacion(datos){
 	    $(".id_beneficiario").chosen({width: "100%"});
 	    $("#id_beneficiario").remove(); 	    
 	}
+<<<<<<< HEAD
 
 	try{	
     	var paisSelect = $("#id_beneficiario");
@@ -491,3 +627,6 @@ function loadBeneficiarioNotificacion(datos){
   	}   	    
 };
 
+=======
+};
+>>>>>>> 02b502ce1adfefad03404a1a33289efcdad2fbaf

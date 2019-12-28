@@ -85,6 +85,8 @@ class BeneficiarioCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         form = self.form_class(request.POST)
+        print(" ")
+        print(request.POST)
         form2 = self.second_form_class(request.POST)
         if form.is_valid() and form2.is_valid():
             beneficiario = form.save(commit=False)
