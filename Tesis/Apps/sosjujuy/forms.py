@@ -108,6 +108,7 @@ ESCALADOS=[
 ESTADO=[
   #('Iniciado','Iniciado'),
   #('Enviado','Enviado'),
+  ('','----------'),
   ('Pendiente','Pendiente'),
   ('Anulado','Anulado'),
   ('Aprobado','Aprobado'),

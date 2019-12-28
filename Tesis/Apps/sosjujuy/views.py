@@ -234,6 +234,11 @@ class NotificacionUpdateView(UpdateView):
             context['form2'] = self.second_form_class(instance=notificacion)
         context['id'] = pk
         context['datos'] = notificacion
+        enviado = self.second_model.objects.filter(
+            notificacion=notificacion.id,
+            estado="Enviado").count()
+        print()
+        context['enviado'] = False if enviado else True
         context['observaciones'] = notificacion_estado
         return context
 

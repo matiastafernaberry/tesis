@@ -45,7 +45,16 @@ function escalaSelected(){
 	//console.log(valSelected);
 }
 
+function checkSiFueEnviado(){
+	if($('#es_enviado').length){
+		$('#id_estado').append('<option value="Enviado">Enviado</option>'); 
+	}
+}
+
 $( document ).ready(function() {
+
+	checkSiFueEnviado();
+
 	if ($('#id_escala option:selected')){
 		escalaSelected();
 	}
