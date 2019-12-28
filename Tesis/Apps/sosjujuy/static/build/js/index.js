@@ -372,6 +372,9 @@ function loadPrestador(datos){
 				    	$("#matricula_prestador").val(datos[0]["fields"]["matricula"]);
 				    	//console.log(datos[0]["fields"]["apellido"]);
 				    },
+				    error:function(e){
+				    	//
+				    }
 				});
 			} catch(error) {
 	  			//console.log(error);

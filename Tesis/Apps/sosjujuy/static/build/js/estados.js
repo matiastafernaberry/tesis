@@ -1,55 +1,61 @@
+function escalaSelected(){
+	$('#id_escalaDos').attr("disabled", false);
+	valSelected = $("#id_escala option:selected").val();
+	//console.log("as");
+	if (valSelected == "Actividades de Extension"){
+		$('#id_escalaDos')
+		    .find('option')
+		    .remove()
+		    .end()
+		    .append('<option value="" selected=selected>----------</option>')
+		    .val('')
+		    .append('<option value="Reporte">Reporte</option>')
+		    .val('Reporte')
+		    .append('<option value="Solicitud">Solicitud</option>')
+		    .val('Solicitud')
+		;
+		$('#id_escalaDos option[value=""]').prop('selected', true);
+	}
+	if (valSelected == "Beneficiarios"){
+		$('#id_escalaDos')
+		    .find('option')
+		    .remove()
+		    .end()
+		    .append('<option value="" selected=selected>----------</option>')
+		    .val('')
+		    .append('<option value="Pedido Extraordinario">Pedido Extraordinario</option>')
+		    .val('Pedido Extraordinario')
+		    .append('<option value="Solicitud de Audiencia">Solicitud de Audiencia</option>')
+		    .val('Solicitud de Audiencia')
+		;
+		$('#id_escalaDos option[value=""]').prop('selected', true);
+	}
+	if (valSelected == "Atencion y Derivacion"){
+		$('#id_escalaDos')
+		    .find('option')
+		    .remove()
+		    .end()
+		    .append('<option value="" selected=selected>----------</option>')
+		    .val('')
+		    .append('<option value="Reporte">Reporte</option>')
+		    .val('Reporte')
+		;
+		$('#id_escalaDos option[value=""]').prop('selected', true);
+	}
+	//console.log(valSelected);
+}
+
 $( document ).ready(function() {
-	
+	if ($('#id_escala option:selected')){
+		escalaSelected();
+	}
 	var formNotificacion = document.getElementById('notificacionForm');
 	if (formNotificacion != null){
 		//id_escala
 		localStorage.removeItem("goTo");
 		
 		$(document).on('change', "#id_escala", function() {
-			$('#id_escalaDos').attr("disabled", false);
-			valSelected = $("#id_escala option:selected").val();
-			console.log("as");
-			if (valSelected == "Actividades de Extension"){
-				$('#id_escalaDos')
-				    .find('option')
-				    .remove()
-				    .end()
-				    .append('<option value="" selected=selected>----------</option>')
-				    .val('')
-				    .append('<option value="Reporte">Reporte</option>')
-				    .val('Reporte')
-				    .append('<option value="Solicitud">Solicitud</option>')
-				    .val('Solicitud')
-				;
-				$('#id_escalaDos option[value=""]').prop('selected', true);
-			}
-			if (valSelected == "Beneficiarios"){
-				$('#id_escalaDos')
-				    .find('option')
-				    .remove()
-				    .end()
-				    .append('<option value="" selected=selected>----------</option>')
-				    .val('')
-				    .append('<option value="Pedido Extraordinario">Pedido Extraordinario</option>')
-				    .val('Pedido Extraordinario')
-				    .append('<option value="Solicitud de Audiencia">Solicitud de Audiencia</option>')
-				    .val('Solicitud de Audiencia')
-				;
-				$('#id_escalaDos option[value=""]').prop('selected', true);
-			}
-			if (valSelected == "Atencion y Derivacion"){
-				$('#id_escalaDos')
-				    .find('option')
-				    .remove()
-				    .end()
-				    .append('<option value="" selected=selected>----------</option>')
-				    .val('')
-				    .append('<option value="Reporte">Reporte</option>')
-				    .val('Reporte')
-				;
-				$('#id_escalaDos option[value=""]').prop('selected', true);
-			}
-			//console.log(valSelected);
+			escalaSelected();
 		});
 
 		$(document).on('click', "#icon_prestador", function(e) {
