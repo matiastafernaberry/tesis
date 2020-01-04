@@ -189,3 +189,27 @@ class EncuestaAtencionBeneficiario(models.Model):
     nivel_de_atencion = models.IntegerField(choices=[(x, x) for x in range(1, 6)], default=0)
     nivel_de_puntualidad = models.IntegerField(choices=[(x, x) for x in range(1, 6)], default=0)
     observacion = models.CharField(max_length=300)
+
+
+class Aula(models.Model):
+    tipo_ubicacion = (
+       ('', ('----------')),
+       ('Interna', ('Interna')),
+       ('Externa', ('Externa')),
+    )
+    tipo_estados = (
+       ('', ('----------')),
+       ('Nueva', ('Nueva')),
+       ('Habilitada', ('Habilitada')),
+       ('Ocupada', ('Ocupada')),
+       ('Libre', ('Libre')),
+       ('Deshabilitada', ('Deshabilitada')),
+
+    )
+
+    numero = models.CharField(max_length=160)
+    ubicacion = models.CharField(max_length=60, choices=tipo_ubicacion)
+    estado = models.CharField(max_length=60, choices=tipo_estados)
+    localidad = models.CharField(max_length=160)
+    capacidad = models.IntegerField()
+    creado = models.DateTimeField(auto_now_add=True)

@@ -33,6 +33,11 @@ urlpatterns = [
     path('reporte/notificacion/', login_required(views.ReporteNotificacion.as_view()), name='reporte_notificacion'),
     path('notificacion/<int:pk>/', login_required(views.NotificacionUpdateView.as_view()), name='notificacion_change'),
     # fin notificaciones
+    # aulas
+    path('aulas/', login_required(views.AulasListView.as_view()), name='aula_changelist'),
+    path('aula/', login_required(views.AulaCreateView.as_view()), name='aula_add'),
+    path('aula/<int:pk>/', login_required(views.AulaUpdateView.as_view()), name='aula_change'),
+    # fin de aulas
     path('prestadores/', login_required(views.PrestadorListView.as_view()), name='prestador_changelist'),
     path('prestador/', login_required(views.PrestadorCreateView.as_view()), name='prestador_add'),
     path('prestador/<int:pk>/', login_required(views.PrestadorUpdateView.as_view()), name='prestador_change'),

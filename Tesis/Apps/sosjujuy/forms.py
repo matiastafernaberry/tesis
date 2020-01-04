@@ -2,7 +2,7 @@ from datetimewidget import widgets
 from django import forms
 
 from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, ActividadExtension, \
-    EncuestaAtencionBeneficiario, Notificacion, NotificacionEstado
+    EncuestaAtencionBeneficiario, Notificacion, NotificacionEstado, Aula
 
 
 class DomicilioForm(forms.ModelForm):
@@ -352,3 +352,41 @@ class EncuestaAtencionBeneficiarioForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+
+UBICACION=[
+    ('Primera Consulta','Primera Consulta'),
+    ('Paciente del Profesional','Paciente del Profesional')
+  ]
+ESTADO=[
+  ('Primera Consulta','Primera Consulta'),
+  ('Paciente del Profesional','Paciente del Profesional')
+]
+
+class AulaForm(forms.ModelForm):
+
+  class Meta:
+      model = Aula
+      fields = (
+                'numero',
+                'ubicacion',
+                'estado',
+                'localidad',
+                'capacidad')
+
+      labels = {
+                'numero': 'Nº Aula',
+                'ubicacion': 'Ubicación',
+                'localidad': 'Localidad',
+                'capacidad': 'Capacidad',
+                }
+
+      widgets = {
+                 'numero': forms.TextInput(attrs={'class': 'form-control'}),
+                 'ubicacion': forms.Select(choices=UBICACION),
+                 'localidad': forms.TextInput(attrs={'class': 'form-control'}),
+                }
+
+  def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+

@@ -2,12 +2,12 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Domicilio, Beneficiario, Derivacion, Prestador, Prestacion, ActividadExtension, \
-    EncuestaAtencionBeneficiario, Notificacion, NotificacionEstado
+    EncuestaAtencionBeneficiario, Notificacion, NotificacionEstado, Aula
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import DomicilioForm, BeneficiarioForm, DerivacionForm, PrestadorForm, PrestacionForm, \
     ActividadExtensionForm, EncuestaAtencionBeneficiarioForm, NotificacionForm, NotificacionEstadoForm, \
-    NotificacionEstadoUpdateForm
+    NotificacionEstadoUpdateForm, AulaForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from easy_pdf.views import PDFTemplateView
@@ -554,3 +554,57 @@ class DerivacionPDFView(PDFTemplateView):
         return context
 
 
+class AulasListView(ListView):
+    model = Aula
+    template_name = 'sosjujuy/aula_list.html'
+    context_object_name = 'aula'
+
+
+class AulaCreateView(CreateView):
+    model = Aula
+    template_name = 'sosjujuy/aulas_form.html'
+    form_class = AulaForm
+    success_url = reverse_lazy('aula_changelist')
+
+    def get_context_data(self, **kwargs):
+        context = super(AulaCreateView, self).get_context_data(**kwargs)
+        if 'form' not in context:
+            context['form'] = self.form_class(self.request.GET)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            aula = form.save(commit=False)
+            aula.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+
+class AulaUpdateView(UpdateView):
+    model = Aula
+    template_name = 'sosjujuy/aulas_form.html'
+    form_class = AulaForm
+    success_url = reverse_lazy('aula_changelist')
+
+    def get_context_data(self, **kwargs):
+        context = super(AulaUpdateView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk', 0)
+        aula = self.model.objects.get(id=pk)
+        if 'form' not in context:
+            context['form'] = self.form_class()
+        context['id'] = pk
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        id_aula = kwargs['pk']
+        aula = self.model.objects.get(id=id_aula)
+        form = self.form_class(request.POST, instance=aula)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
