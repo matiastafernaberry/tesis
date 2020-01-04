@@ -1,0 +1,165 @@
+{% extends "sosjujuy/base_site.html" %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <form method="post" id="notificacionForm" novalidate  enctype="multipart/form-data">
+            <div class="">
+                <div class="page-title">
+                    <div class="col-md-12">
+                        <h3 class="text-center">Gestión de Aulas</h3>
+                        <input type="hidden" name="usuario" value="user" id="usuario">
+                    </div>
+                </div>
+                </br>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12" align="right">
+                            <div class="x_panel border-aero">
+                                {% csrf_token %}
+                                <!--  Observacion, Archivo -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <strong>N° Aula:</strong>
+                                        </div>
+                                        <div class="col-md-6" style="text-align: left;">
+                                            <input type="text" name="numero-aula" id="numero_aula">
+                                            <a style="color:red">
+                                                {{ form.asunto.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <strong>Estado:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            <select name="estado" required="" id="id_estado_aula">
+                                              <option value="" selected="">----------</option>
+                                              <option value="Nueva">Nueva</option>
+                                              <option value="Habilitada">Habilitada</option>
+                                              <option value="Ocupada">Ocupada</option>
+                                              <option value="Libre">Libre</option>
+                                              <option value="Deshabilitada">Deshabilitada</option>
+
+                                            </select>
+                                            <a style="color:red">
+                                                {{ form2.archivo.errors }} 
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                </div>
+                                <!--  Escala, Escala2  -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-3" style="text-align: left;">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optradio" checked>
+                                                        Interna
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" style="text-align: left;">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optradio">Externa
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <strong>Ubicación:</strong>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: left;">
+                                            <input type="text" name="ubicacion" id="ubicacion_aula">
+                                            <a style="color:red">
+                                                {{ form.escalaDos.errors }} 
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  Asunto,   -->
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <h2>Disponibilidad</h2>
+                                    </div>
+                                    <div class="col-md-10"></div>
+                                </div>
+                                <!--  Prestador, Beneficiario  -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <strong>Desde</strong>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <input type="date" name="desde_aula">
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <label>
+                                            <input type="checkbox" value="">
+                                                Todos los dias
+                                            </label>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3" style="text-align: left;">
+                                            <strong>Hora Desde</strong>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <input type="date" name="desde_aula">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  Prestador, Beneficiario  -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-2" style="text-align: left;">
+                                            <strong>Hasta</strong>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <input type="date" name="desde_aula">
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <label>
+                                            <input type="checkbox" value="">
+                                                Lunes o Viernes
+                                            </label>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-3" style="text-align: left;">
+                                            <strong>Hora Hasta</strong>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;">
+                                            <input type="date" name="desde_aula">
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class=" col-md-4">
+                        <button type="button" class="btn btn-primary col-md-3 border-dark" id="enviar_form"><b>Agregar</b></button>
+
+                        <a href="{% url 'notificacion_changelist' %}" class="btn btn-danger col-md-3 border-dark">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

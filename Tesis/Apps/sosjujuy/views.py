@@ -608,3 +608,26 @@ class AulaUpdateView(UpdateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response(self.get_context_data(form=form))
+
+
+class GestionAulaCreateView(CreateView):
+    model = Aula
+    template_name = 'sosjujuy/gestion_aulas_form.html'
+    form_class = AulaForm
+    success_url = reverse_lazy('aula_changelist')
+
+    def get_context_data(self, **kwargs):
+        context = super(GestionAulaCreateView, self).get_context_data(**kwargs)
+        if 'form' not in context:
+            context['form'] = self.form_class(self.request.GET)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            aula = form.save(commit=False)
+            aula.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
